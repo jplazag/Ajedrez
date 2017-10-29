@@ -9,7 +9,7 @@
 |Juan Pablo Duque    |                 |
 |Andrés Felipe Medina|                 |
 |Nicole Mora         |kmoraq           |
-|Giovanni Paez       |                 |
+|Giovanni Paez       |pagliacci0411    |
 |Juan Diego Plaza    |jplazag          |
 |Juan David Rodriguez|Rodrigueezj      |
 
