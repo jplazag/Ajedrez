@@ -10,7 +10,7 @@
 |Andrés Felipe Medina|                 |
 |Nicole Mora         |kmoraq           |
 |Giovanni Paez       |                 |
-|Juan Diego Plaza    |                 |
+|Juan Diego Plaza    |jplazag          |
 |Juan David Rodriguez|Rodrigueezj      |
 
 
