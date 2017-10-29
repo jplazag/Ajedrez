@@ -11,7 +11,7 @@
 |Nicole Mora         |kmoraq           |
 |Giovanni Paez       |                 |
 |Juan Diego Plaza    |                 |
-|Juan David Rodriguez|                 |
+|Juan David Rodriguez|Rodrigueezj      |
 
 
 # Introducción
