@@ -49,13 +49,13 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
 
 ## Específicos
 
-Programar una aplicación para jugar ajedrez.
+++Programar una aplicación para jugar ajedrez.
 
-Facilitar el aprendizaje del ajedrez.
+++Facilitar el aprendizaje del ajedrez.
 
-Fomentar el desarrollo de más aplicaciones como esta, permitiendo que todos accedan al código fuente.
+++Fomentar el desarrollo de más aplicaciones como esta, permitiendo que todos accedan al código fuente.
 
-Lograr una excelente calificación en POO.
+++Lograr una excelente calificación en POO.
 
 
 # Requisitos
