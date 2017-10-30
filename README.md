@@ -23,13 +23,13 @@ En este siglo donde se ha presentado el mayor apogeo tecnológico de la historia
 
 ## Marco teórico
 
-Con el fin de realizar un medio de entretenimiento que brinde a los jovenes una alternativa capaz de ayudarlos a expandir sus barreras intelectuales seguiremos los ejemplos dados por los enlaces presentados mas adelante, en el capitulo "Antecedentes"; como primera medida tendremos en cuenta que la realización de una muestra interactiva para la generación del aprendizaje es vital para llamar la atención de nuestro publico objetivo por tanto definiremos que nuestro programa tendra como primer paso crear un ajederez que permita la interacción del usuario con las fichas y el tablero; esta creación ira apoyada en el lenguaje grafico processing y muy probablemente la aplicació del lenguaje P5 para facilitar el trabajo.
-Posterior a la creación del juego se intentara crear un metodo que aprovechando este juego ya programado creara problemas que eercitaran el cerebro del usuario al ponerlo en situaciones del juego en las cuales se llevara una linea en la cual se espera enseñar al jugador acciones y reacciones dependiendo de la situación en la que se encuentre el juego, este desarrollo esta proyectado para ser generado por niveles dependiendo de la experiencia del usuario para por si mismo seleccionar la dificultad en la cual quiere participar; de esta manera para una idea inicial del proyecto en resumen se pretende:
-1- Crear una aplicación interactiva del juego del ajederez.
+Con el fin de realizar un medio de entretenimiento que brinde a los jóvenes una alternativa capaz de ayudarlos a expandir sus barreras intelectuales seguiremos los ejemplos dados por los enlaces presentados más adelante, en el capítulo "Antecedentes"; como primera medida tendremos en cuenta que la realización de una muestra interactiva para la generación del aprendizaje es vital para llamar la atención de nuestro publico objetivo por tanto definiremos que nuestro programa tendra como primer paso crear un ajederez que permita la interacción del usuario con las fichas y el tablero; esta creación irá apoyada en el lenguaje gráfico processing y muy probablemente la aplicación del lenguaje P5 para facilitar el trabajo.
+Posterior a la creación del juego se intentará crear un método que aprovechando este juego ya programado creará problemas que ejercitarán el cerebro del usuario al ponerlo en situaciones del juego en las cuales se llevará una línea en la cual se espera enseñar al jugador acciones y reacciones dependiendo de la situación en la que se encuentre el juego, este desarrollo está proyectado para ser generado por niveles dependiendo de la experiencia del usuario para por sí mismo seleccionar la dificultad en la cual quiere participar; de esta manera para una idea inicial del proyecto en resumen se pretende:
+1- Crear una aplicación interactiva del juego del ajedrez.
 2- Implementación de ejercicios para llevar un aprendizaje controlado del juego.
-3- Creación de las dificultades de juego del punto anterior dependiendo de la destreza seleccionada por el usuario y apoyada en el fundamento del juego por las referencias mostradas en el siguiente capitulo.
+3- Creación de las dificultades de juego del punto anterior dependiendo de la destreza seleccionada por el usuario y apoyada en el fundamento del juego por las referencias mostradas en el siguiente capítulo.
 
-Estos 3 pasos seran desarrollados en el lenguaje de programación processing y P5 ligados y fundamentados en la programación orientada a objetos.
+Estos 3 pasos serán desarrollados en el lenguaje de programación processing y P5 ligados, fundamentados en la programación orientada a objetos.
 
 ## Antecedentes
 
@@ -81,16 +81,16 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
 # Requisitos
 
 
- • Lenguaje: Processing - P5
+ • Lenguaje: Processing - P5.
  
  • Requerimientos:
 
-   • Jugabilidad y cumplimiento de las normas basicas del juego.
-   • Creación de problemas para llevar una linea de aprendizaje en el juego.
+   • Jugabilidad y cumplimiento de las normas básicas del juego.
+   • Creación de problemas para llevar una línea de aprendizaje en el juego.
    • Facilidad para la creación de nuevos problemas por parte del programador.
    • Facilidad para la creación de nuevos problemas por parte del usuario.
 
 • Librerias de Java utilizadas:
 
-   • Libreria AWT.
-   • Libreria Swing.
+   • Librería AWT.
+   • Librería Swing.
