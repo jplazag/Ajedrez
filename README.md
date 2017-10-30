@@ -6,7 +6,7 @@
 
 |     Nombre         | Github nickname |
 |--------------------|-----------------|
-|Juan Pablo Duque    |                 |
+|Juan Pablo Duque    |Jpduquees        |
 |Andrés Felipe Medina|amedinae         |
 |Nicole Mora         |kmoraq           |
 |Giovanni Paez       |pagliacci0411    |
