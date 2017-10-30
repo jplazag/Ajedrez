@@ -18,7 +18,8 @@
 
 ## Problemática
 
-<Descripción del problema que se busca resolver>
+En este siglo donde se ha presentado el mayor apogeo tecnologico de la historia conocida, se ha desarrollado una crisis en la juventud, el aburrimiento y el desinteres por el aprendizaje.Gracias a este fenomeno social los jovenes, en los cuales descansa el futuro de nuestra sociedad, buscan medios nocivos para ocupar sus mentes divagantes y sedientas de entretenimiento, lo cual apunta a un mañana sombrío.
+
 
 ## Marco teórico
 
@@ -44,10 +45,14 @@ https://www.youtube.com/watch?v=Uijf8wMSsf8
 
 ## General
 
-<Enmarque el proyecto en un objetivo global>
+Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes del conocimiento.
 
 ## Específicos
 
-<Desglose el objetivo general en específicos>
+-+ Programar una aplicación para jugar ajedrez.
+-+ Facilitar el aprendizaje del ajedrez.
+-+ Fomentar el desarrollo de más aplicaciones como esta permitiendo que todos accedan al codigo fuente.
+-+ Lograr una excelente calificación en POO
+
 
 # Requisitos
