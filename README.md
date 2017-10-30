@@ -91,7 +91,7 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
    
  • Facilidad para la creación de nuevos problemas por parte del usuario.
 
- • Librerias de Java utilizadas:
+## Librerias de Java utilizadas:
 
    • Librería AWT.
    
