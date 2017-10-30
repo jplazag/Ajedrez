@@ -35,17 +35,29 @@ Estos 3 pasos seran desarrollados en el lenguaje de programación processing y P
 
 Previo a la realización del proyecto sugerimos los siguientes enlaces a proyectos relacionados en los cuales nos apoyaremos para la realización de este proyecto:
 -http://www.ucn.edu.co/virtualmente_old/estudiantes/ajedrez-virtual/Ajedrez-contenido/C%C3%B3mo%20funciona%20un%20programa%20de%20Ajedrez.pdf
+
 -https://es.wikipedia.org/wiki/Ajedrez_por_computadora
+
 -https://www.ime.usp.br/~tonelli/xadrezbasico/algoritmo.html
+
 -https://www.youtube.com/watch?v=no4m-TIX-rc
+
 -https://www.youtube.com/watch?v=8kI3CqqmW3o
+
 -https://www.pgnmentor.com/files.html
+
 -https://es.wikipedia.org/wiki/Poda_alfa-beta
+
 -https://www.youtube.com/watch?v=1bs6IQjuQ20
+
 -http://chuwiki.chuidiang.org/index.php?title=GridLayout
+
 -http://www.chuidiang.org/java/novatos/JFrame_JDialog.php
+
 -http://respostas.guj.com.br/3431-como-usar-grouplayout--sethorizontalgroupsetverticalgroup
+
 -http://jagonzalez.org/como-cambiar-la-imagen-de-un-jbutton-en-java/
+
 -https://www.youtube.com/watch?v=Uijf8wMSsf8
 
 # Objetivos
