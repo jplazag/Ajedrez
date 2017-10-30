@@ -34,6 +34,7 @@ Estos 3 pasos seran desarrollados en el lenguaje de programación processing y P
 ## Antecedentes
 
 Previo a la realización del proyecto sugerimos los siguientes enlaces a proyectos relacionados en los cuales nos apoyaremos para la realización de este proyecto:
+
 -http://www.ucn.edu.co/virtualmente_old/estudiantes/ajedrez-virtual/Ajedrez-contenido/C%C3%B3mo%20funciona%20un%20programa%20de%20Ajedrez.pdf
 
 -https://es.wikipedia.org/wiki/Ajedrez_por_computadora
