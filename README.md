@@ -18,7 +18,7 @@
 
 ## Problemática
 
-En este siglo donde se ha presentado el mayor apogeo tecnologico de la historia conocida, se ha desarrollado una crisis en la juventud, el aburrimiento y el desinteres por el aprendizaje.Gracias a este fenomeno social los jovenes, en los cuales descansa el futuro de nuestra sociedad, buscan medios nocivos para ocupar sus mentes divagantes y sedientas de entretenimiento, lo cual apunta a un mañana sombrío.
+En este siglo donde se ha presentado el mayor apogeo tecnológico de la historia conocida, se ha desarrollado una crisis en la juventud, el aburrimiento y el desinterés por el aprendizaje. Gracias a este fenómeno social los jóvenes, en los cuales descansa el futuro de nuestra sociedad, buscan medios nocivos para ocupar sus mentes divagantes y sedientas de entretenimiento, lo cual apunta a un mañana sombrío.
 
 
 ## Marco teórico
@@ -49,13 +49,13 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
 
 ## Específicos
 
--+ Programar una aplicación para jugar ajedrez.
+Programar una aplicación para jugar ajedrez.
 
--+ Facilitar el aprendizaje del ajedrez.
+Facilitar el aprendizaje del ajedrez.
 
--+ Fomentar el desarrollo de más aplicaciones como esta permitiendo que todos accedan al codigo fuente.
+Fomentar el desarrollo de más aplicaciones como esta permitiendo que todos accedan al codigo fuente.
 
--+ Lograr una excelente calificación en POO
+Lograr una excelente calificación en POO
 
 
 # Requisitos
