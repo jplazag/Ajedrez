@@ -83,7 +83,7 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
 
  • Lenguaje: Processing - P5.
  
- • Requerimientos:
+ ## Requerimientos:
 
    • Jugabilidad y cumplimiento de las normas básicas del juego.
    
@@ -96,4 +96,5 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
 • Librerias de Java utilizadas:
 
    • Librería AWT.
+   
    • Librería Swing.
