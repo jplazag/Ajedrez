@@ -53,9 +53,9 @@ Programar una aplicación para jugar ajedrez.
 
 Facilitar el aprendizaje del ajedrez.
 
-Fomentar el desarrollo de más aplicaciones como esta permitiendo que todos accedan al codigo fuente.
+Fomentar el desarrollo de más aplicaciones como esta, permitiendo que todos accedan al código fuente.
 
-Lograr una excelente calificación en POO
+Lograr una excelente calificación en POO.
 
 
 # Requisitos
