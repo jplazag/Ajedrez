@@ -37,6 +37,7 @@ http://www.chuidiang.org/java/novatos/JFrame_JDialog.php
 http://respostas.guj.com.br/3431-como-usar-grouplayout--sethorizontalgroupsetverticalgroup
 http://jagonzalez.org/como-cambiar-la-imagen-de-un-jbutton-en-java/
 https://www.youtube.com/watch?v=Uijf8wMSsf8
+
 ## Antecedentes
 
 <Aplicaciones similares, url's de los repos>
@@ -49,13 +50,13 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
 
 ## Específicos
 
-++Programar una aplicación para jugar ajedrez.
+++ Programar una aplicación para jugar ajedrez.
 
-++Facilitar el aprendizaje del ajedrez.
+++ Facilitar el aprendizaje del ajedrez.
 
-++Fomentar el desarrollo de más aplicaciones como esta, permitiendo que todos accedan al código fuente.
+++ Fomentar el desarrollo de más aplicaciones como esta, permitiendo que todos accedan al código fuente.
 
-++Lograr una excelente calificación en POO.
+++ Lograr una excelente calificación en POO.
 
 
 # Requisitos
