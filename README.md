@@ -86,8 +86,11 @@ Ofrecer una alternativa de entretenimiento y que a su vez expanda los horizontes
  • Requerimientos:
 
    • Jugabilidad y cumplimiento de las normas básicas del juego.
+   
    • Creación de problemas para llevar una línea de aprendizaje en el juego.
+   
    • Facilidad para la creación de nuevos problemas por parte del programador.
+   
    • Facilidad para la creación de nuevos problemas por parte del usuario.
 
 • Librerias de Java utilizadas:
