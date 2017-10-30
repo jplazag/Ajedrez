@@ -18,7 +18,8 @@
 
 ## Problemática
 
-<Descripción del problema que se busca resolver>
+En este siglo donde se ha presentado el mayor apogeo tecnologico de la historia conocida, se ha desarrollado una crisis en la juventud, el aburrimiento.
+Gracias a este fenomeno social los jovenes, en los cuales descansa el futuro de nuestra sociedad, buscan medios nocivos para ocupar sus mentes divagantes y sedientas de entretenimiento, lo cual apunta a un mañana sombrío.
 
 ## Marco teórico
 
