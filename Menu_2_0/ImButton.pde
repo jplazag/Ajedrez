@@ -32,6 +32,6 @@ public class ImButton extends Button {
 
   public void drawButton() {
     imageMode(CENTER);
-    image(this.imag, this.translation.x, this.translation.y,this.BWidth,this.BHeight);
+    image(this.imag, this.translation.x, this.translation.y, this.BWidth, this.BHeight);
   }
 }
