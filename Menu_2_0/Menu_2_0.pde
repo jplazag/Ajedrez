@@ -1,34 +1,72 @@
-PVector botonJugar, botonComoJugar, botonAperturas,botonAcertijos;
-int[] bw= new int []{209, 216, 238,231}, bh=new int[] {110, 83, 84,72}, value=new int[] {1, 2, 3, 4};
-int nivel=0; 
-float ts;
-PImage[] jugar, comoJugar, aperturas,acertijos;
-ImButton[] butMP=new ImButton[4];
+PVector[] botonesMPPos=new PVector[5],botonesCJPos=new PVector[3];
+int[] bwMP= new int []{209, 216, 238, 220, 204}, bhMP=new int[] {110, 83, 86, 76, 81}, valueMP=new int[] {1, 2, 3, 4, 5};
+int[] bwCJ= new int []{190,190,190}, bhCJ=new int[] {65,65,65}, valueCJ=new int[] {6,7,8};
+int nivel=0;
+PImage[][] imagenesMP= new PImage[5][3], imagenesCJ = new PImage[3][3];
+ImButton[] butMP = new ImButton[5], butCJ = new ImButton [3];
+
+public void setupBotones() {
+  //Inicializacion imagenes
+  imagenesMP[0] = new PImage [] {loadImage("jugar1.png"), loadImage("jugar2.png"), loadImage("jugar3.png")};
+  imagenesMP[1] = new PImage [] {loadImage("comojugar1.png"), loadImage("comojugar2.png"), loadImage("comojugar3.png")};
+  imagenesMP[2] = new PImage [] {loadImage("aperturas1.png"), loadImage("aperturas2.png"), loadImage("aperturas3.png")};
+  imagenesMP[3] = new PImage [] {loadImage("acertijos1.png"), loadImage("acertijos2.png"), loadImage("acertijos3.png")};
+  imagenesMP[4] = new PImage [] {loadImage("creditos1.png"), loadImage("creditos2.png"), loadImage("creditos3.png")};
+  imagenesCJ[0] = new PImage [] {loadImage("cjVersus1.png"), loadImage("cjVersus2.png"), loadImage("cjVersus3.png")};
+  imagenesCJ[1] = new PImage [] {loadImage("cjAperturas1.png"), loadImage("cjAperturas2.png"), loadImage("cjAperturas3.png")};
+  imagenesCJ[2] = new PImage [] {loadImage("cjAcertijos1.png"), loadImage("cjAcertijos2.png"), loadImage("cjAcertijos3.png")};
+
+  //Inicializacion posiciones
+
+  botonesMPPos[0] = new PVector(width/2, height/7);
+  botonesMPPos[1] = new PVector((width/2)-110, 3*height/10);
+  botonesMPPos[2] = new PVector((width/2)+130, (3*height/10)-1);
+  botonesMPPos[3] = new PVector((width/2)-113, 14*height/30);
+  botonesMPPos[4] = new PVector((width/2)+113, (14*height/30)-2);
+  for (int i=0;i<botonesCJPos.length;i++){
+    botonesCJPos[i] =new PVector((i+1)*width/4, 150);
+  }
+
+  //Inicializacion de los constructores
+  for (int j=0; j<butMP.length; j++) {
+    butMP[j] =new ImButton(botonesMPPos[j], imagenesMP[j], bhMP[j], bwMP[j], valueMP[j]);
+  }
+  for (int k=0; k<butCJ.length;k++){
+    butCJ[k]=new ImButton (botonesCJPos[k], imagenesCJ[k], bhCJ[k], bwCJ[k], valueCJ[k]);
+  }
+}
+
 void setup () {
-  jugar = new PImage [] {loadImage("jugar1.png"), loadImage("jugar2.png"), loadImage("jugar3.png")};
-  comoJugar = new PImage [] {loadImage("comojugar1.png"), loadImage("comojugar2.png"), loadImage("comojugar3.png")};
-  aperturas = new PImage [] {loadImage("aperturas1.png"), loadImage("aperturas2.png"), loadImage("aperturas3.png")};
-  acertijos = new PImage [] {loadImage("acertijos1.png"), loadImage("acertijos2.png"), loadImage("acertijos3.png")};
+  setupBotones();
   size(1000, 550);
 }
+
 void draw() {
-  botonJugar = new PVector(width/2, height/6);
-  botonComoJugar = new PVector((width/2)-(bw[1]/2)-10, 3*height/10);
-  botonAperturas = new PVector((width/2)+(bw[2]/2)+10, 3*height/10);
-  botonAcertijos = new PVector((width/2)-(bw[3]/2)+30, 13*height/30);
-  butMP[0] = new ImButton (botonJugar, jugar, bh[0], bw[0], value[0]);
-  butMP[1] = new ImButton (botonComoJugar, comoJugar, bh[1], bw[1], value[1]);
-  butMP[2] = new ImButton (botonAperturas, aperturas, bh[2], bw[2], value[2]);
-  butMP[3] = new ImButton (botonAcertijos, acertijos, bh[3], bw[3], value[3]);
   background(50);
-  for (int i=0; i<butMP.length; i++) {
-    butMP[i].cambio();
-    butMP[i].draw();
+  if (nivel==0) {
+    for (int i=0; i<butMP.length; i++) {
+      butMP[i].cambio();
+      butMP[i].draw();
+    }
+  }
+  if (nivel==2) {
+    for (int j=0; j<butCJ.length; j++) {
+      butCJ[j].cambio();
+      butCJ[j].draw();
+    }
   }
   println(nivel);
 }
+
 void mouseReleased() {
-  for (int i=0; i<butMP.length; i++) {
-    butMP[i].mouseReleased();
+  if(nivel==0){
+    for (int i=0; i<butMP.length; i++) {
+      butMP[i].mouseReleased();
+    }
+  }
+  if (nivel==2) {
+    for (int j=0; j<butCJ.length; j++) {
+      butCJ[j].mouseReleased();
+    }
   }
 }
