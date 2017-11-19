@@ -4,19 +4,60 @@ class Pawn extends Piece {
     super(p, t, i);
   }
 
-  public PVector moviment(PVector c) {
-    PVector newPosition = c;
-    setPosition(c.x, c.y);
-    return newPosition;
-  }
 
   @Override
     public void eat() {
   }
-  
-    public ArrayList posibleMoviments(){
+
+  public ArrayList possibleMovements() {
     ArrayList<PVector> PM = new ArrayList<PVector>();
-    
+    if (this.team) {
+      if (this.position.x != 7) {
+        if (board.board[(int)this.position.x +1][(int)this.position.y+1] != null) {
+          if (team != board.board[(int)this.position.x +1][(int)this.position.y+1].getTeam()) {
+            PM.add(new PVector(this.position.x+1, this.position.y +1));
+          }
+        }
+      }
+      if (this.position.x != 0) {
+        if (board.board[(int)this.position.x -1][(int)this.position.y+1] != null) {
+          if (team != board.board[(int)this.position.x -1][(int)this.position.y+1].getTeam()) {
+            PM.add(new PVector(this.position.x-1, this.position.y +1));
+          }
+        }
+      }
+      if (this.position.y==1) {
+        PM.add(new PVector(this.position.x, this.position.y + 1));
+        PM.add(new PVector(this.position.x, this.position.y + 2));
+      } else {
+        if (board.board[(int)this.position.x][(int)this.position.y + 1] == null) {
+          PM.add(new PVector(this.position.x, this.position.y + 1));
+        }
+      }
+    } else {
+      if (this.position.x != 7) {
+        if (board.board[(int)this.position.x +1][(int)this.position.y-1] != null) {
+          if (team != board.board[(int)this.position.x +1][(int)this.position.y-1].getTeam()) {
+            PM.add(new PVector(this.position.x+1, this.position.y -1));
+          }
+        }
+      }
+      if (this.position.x != 0) {
+        if (board.board[(int)this.position.x -1][(int)this.position.y-1] != null) {
+          if (team != board.board[(int)this.position.x -1][(int)this.position.y-1].getTeam()) {
+            PM.add(new PVector(this.position.x-1, this.position.y -1));
+          }
+        }
+      }
+      if (this.position.y==6) {
+        PM.add(new PVector(this.position.x, this.position.y - 1));
+        PM.add(new PVector(this.position.x, this.position.y - 2));
+      } else {
+        if (board.board[(int)this.position.x][(int)this.position.y - 1] == null) {
+          PM.add(new PVector(this.position.x, this.position.y - 1));
+        }
+      }
+    }
     return PM;
-}
+  }
 }
