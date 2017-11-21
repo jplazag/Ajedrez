@@ -27,8 +27,12 @@ class Pawn extends Piece {
         }
       }
       if (this.position.y==1) {
-        PM.add(new PVector(this.position.x, this.position.y + 1));
-        PM.add(new PVector(this.position.x, this.position.y + 2));
+        if (board.board[(int)this.position.x][(int)this.position.y + 2] == null) {
+          PM.add(new PVector(this.position.x, this.position.y + 2));
+        }
+        if (board.board[(int)this.position.x][(int)this.position.y + 1] == null) {
+          PM.add(new PVector(this.position.x, this.position.y + 1));
+        }
       } else {
         if (board.board[(int)this.position.x][(int)this.position.y + 1] == null) {
           PM.add(new PVector(this.position.x, this.position.y + 1));

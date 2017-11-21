@@ -97,8 +97,11 @@ void mouseClicked() {
 void draw() {
   board.cuadricula();
   board.pieceSelection();
+  //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
+  //  board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.MovementsWhite(), !board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
+  //}
   if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
-    board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements(), board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
+    board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements() /*board.MovementsBlack()*/, board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
   }
   board.display();
   board.mousePosition();

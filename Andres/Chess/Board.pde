@@ -2,6 +2,7 @@ class Board {
   Piece[][] board = new Piece[8][8];
   int size;
   int turn = 1;
+  boolean verify = false;
   Board (Piece[][] a, int s) {
     board = a;
     size = s;
@@ -30,6 +31,56 @@ class Board {
     popMatrix();
   }
 
+  public void deselect() {
+    if ((board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) == -1)) {
+      board[(int)pieceSelection().x][(int)pieceSelection().y].setSelection(false);
+    }
+  }
+
+  public void onlySelection() {
+    for (int i = 0; i<64; i++) {
+      if (((i/8) != (int)mousePosition().x  || (i%8) !=(int)mousePosition().y) && board[i/8][i%8] != null) {
+        board[i/8][i%8].setSelection(false);
+      }
+    }
+  }
+
+  public void turnManager() {
+    if (turn % 2 != 0) {
+      if (!board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) {
+        board[(int)mousePosition().x][(int)mousePosition().y].setSelection(true);
+      }
+    } else {
+      if (board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) {
+        board[(int)mousePosition().x][(int)mousePosition().y].setSelection(true);
+      }
+    }
+  }
+
+  public void move() {
+    if ((board[(int)mousePosition().x][(int)mousePosition().y] == null) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
+      board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
+      board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
+      board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
+      verify = true;
+      turn += 1;
+    }
+  }
+
+  public void eat() {
+    if ((board[(int)mousePosition().x][(int)mousePosition().y] != null) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
+      if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {
+        if ((board[(int)pieceSelection().x][(int)pieceSelection().y].getTeam() != board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
+          board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
+          board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
+          board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
+          verify = true;
+          turn += 1;
+        }
+      }
+      deselect();
+    }
+  }
   public PVector mousePosition() {
     PVector p = new PVector(0, 0);
     for (int i = 0; i < 64; i ++) {
@@ -39,6 +90,44 @@ class Board {
       }
     }
     return p;
+  }
+
+  public ArrayList MovementsWhite() {
+    ArrayList<PVector> PMB = new ArrayList<PVector>();
+    ArrayList<PVector> p = new ArrayList<PVector>();
+    for (int i = 0; i<64; i++) {
+      if (board[i/8][i%8] != null) {
+        if (!board[i/8][i%8].getTeam()) {
+          p = board[i/8][i%8].possibleMovements();
+          for (int c = 0; c < p.size(); c++) {
+            PMB.add(p.get(c));
+          }
+        }
+      }
+    }
+    return PMB;
+  }
+
+  public ArrayList MovementsBlack() {
+    ArrayList<PVector> PMB = new ArrayList<PVector>();
+    ArrayList<PVector> p = new ArrayList<PVector>();
+    for (int i = 0; i<64; i++) {
+      if (board[i/8][i%8] != null) {
+        if (board[i/8][i%8].getTeam()) {
+          p = board[i/8][i%8].possibleMovements();
+          for (int c = 0; c < p.size(); c++) {
+            PMB.add(p.get(c));
+          }
+        }
+      }
+    }
+    return PMB;
+  }
+
+  public boolean check() {
+    boolean check = false;
+
+    return check;
   }
 
   public boolean selectPiece() {
@@ -55,8 +144,8 @@ class Board {
             fill(255, (c*10)%255, 0);
             rect((i/8)*size, (i%8)*size, size, size);
             fill(0);
-            textSize(50);
-            text(c, (i)/8*size, (i)%8*size);
+            //textSize(50);
+            //text(c, (i)/8*size, (i)%8*size);
           }
         }
       }
@@ -81,55 +170,17 @@ class Board {
   }
 
   public void mouseClicked() {
-    int x=0 ;
-    int y=0;
-    boolean verify = false;
     if (pieceSelection().x < 8 && pieceSelection().y < 8) {
-      if (  (board[(int)mousePosition().x][(int)mousePosition().y] == null) && (pieceSelection() != null) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
-        board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
-        board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
-        board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
-        x = (int)mousePosition().x;
-        y = (int)mousePosition().y;
-        verify =true;
-        turn += 1;
-      } else {
-        if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {
-          if ((board[(int)pieceSelection().x][(int)pieceSelection().y].getTeam() != board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
-            board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
-            board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
-            board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
-            x = (int)mousePosition().x;
-            y = (int)mousePosition().y;
-            verify =true;
-            turn += 1;
-          }
-        }
-        if ((board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) == -1)) {
-          board[(int)pieceSelection().x][(int)pieceSelection().y].setSelection(false);
-        }
-      }
+      move();
+      eat();
     }
-
     if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {
-      for (int i = 0; i<64; i++) {
-        if (((i/8) != (int)mousePosition().x  || (i%8) !=(int)mousePosition().y) && board[i/8][i%8] != null) {
-          board[i/8][i%8].setSelection(false);
-        }
-      }
+      onlySelection();
       if (mouseX < size*8 && mouseY < size*8) { 
-        if (turn % 2 != 0) {
-          if (!board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) {
-            board[(int)mousePosition().x][(int)mousePosition().y].setSelection(true);
-          }
-        } else {
-          if (board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) {
-            board[(int)mousePosition().x][(int)mousePosition().y].setSelection(true);
-          }
-        }
+        turnManager();
       } 
       if (verify) {
-        board[x][y].setSelection(false);
+        board[(int)mousePosition().x][(int)mousePosition().y].setSelection(false);
         verify=false;
       }
     }
