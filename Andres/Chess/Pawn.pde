@@ -4,11 +4,6 @@ class Pawn extends Piece {
     super(p, t, i);
   }
 
-
-  @Override
-    public void eat() {
-  }
-
   public ArrayList possibleMovements() {
     ArrayList<PVector> PM = new ArrayList<PVector>();
     if (this.team) {

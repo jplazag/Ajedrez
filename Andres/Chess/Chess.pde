@@ -1,10 +1,27 @@
 PImage[] i = new PImage[12];
 ArrayList<PVector> posible;
-Piece[][] b = new Piece[8][8];
+String b;
+int cola = 0;
+Reader lee = new Reader();
 Board board;
 boolean selection = false;
 
+String[] lines;
+StringBuffer cadena = new StringBuffer();
+
+String posicion_inicial() {
+
+  lines = loadStrings("ejerciciosFEN.txt");
+  for (int i = 0; i < lines.length; i++) {
+  }
+  //for (int x=0;x<lines.length;x++){
+  cadena = cadena.append(lines[0]);
+  //} 
+  return cadena.toString();
+}
+
 void setup() {
+  b = posicion_inicial();
   i[0] = loadImage("PeonB.png");
   i[1] = loadImage("PeonN.png");
   i[2] = loadImage("AlfilB.png");
@@ -18,71 +35,8 @@ void setup() {
   i[10] = loadImage("ReyB.png");
   i[11] = loadImage("ReyN.png");
 
-  b[0][0] = new Rock(new PVector(0, 0), true, i[7]);
-  b[1][0] = new Knight(new PVector(1, 0), true, i[5]);
-  b[2][0] = new Bishop(new PVector(2, 0), true, i[3]);
-  b[3][0] = new Queen(new PVector(3, 0), true, i[9]);
-  b[4][0] = new King(new PVector(4, 0), true, i[11]);
-  b[5][0] = new Bishop(new PVector(5, 0), true, i[3]);
-  b[6][0] = new Knight(new PVector(6, 0), true, i[5]);
-  b[7][0] = new Rock(new PVector(7, 0), true, i[7]);
-  b[0][1] = new Pawn(new PVector(0, 1), true, i[1]);
-  b[1][1] = new Pawn(new PVector(1, 1), true, i[1]);
-  b[2][1] = new Pawn(new PVector(2, 1), true, i[1]);
-  b[3][1] = new Pawn(new PVector(3, 1), true, i[1]);
-  b[4][1] = new Pawn(new PVector(4, 1), true, i[1]);
-  b[5][1] = new Pawn(new PVector(5, 1), true, i[1]);
-  b[6][1] = new Pawn(new PVector(6, 1), true, i[1]);
-  b[7][1] = new Pawn(new PVector(7, 1), true, i[1]);
-  b[0][2] = null;
-  b[1][2] = null;
-  b[2][2] = null;
-  b[3][2] = null;
-  b[4][2] = null;
-  b[5][2] = null;
-  b[6][2] = null;
-  b[7][2] = null;
-  b[0][3] = null;
-  b[1][3] = null;
-  b[2][3] = null;
-  b[3][3] = null;
-  b[4][3] = null;
-  b[5][3] = null;
-  b[6][3] = null;
-  b[7][3] = null;
-  b[0][4] = null;
-  b[1][4] = null;
-  b[2][4] = null;
-  b[3][4] = null;
-  b[4][4] = null;
-  b[5][4] = null;
-  b[6][4] = null;
-  b[7][4] = null;
-  b[0][5] = null;
-  b[1][5] = null;
-  b[2][5] = null;
-  b[3][5] = null;
-  b[4][5] = null;
-  b[5][5] = null;
-  b[6][5] = null;
-  b[7][5] = null;
-  b[0][6] = new Pawn(new PVector(0, 6), false, i[0]);
-  b[1][6] = new Pawn(new PVector(1, 6), false, i[0]);
-  b[2][6] = new Pawn(new PVector(2, 6), false, i[0]);
-  b[3][6] = new Pawn(new PVector(3, 6), false, i[0]);
-  b[4][6] = new Pawn(new PVector(4, 6), false, i[0]);
-  b[5][6] = new Pawn(new PVector(5, 6), false, i[0]);
-  b[6][6] = new Pawn(new PVector(6, 6), false, i[0]);
-  b[7][6] = new Pawn(new PVector(7, 6), false, i[0]);
-  b[0][7] = new Rock(new PVector(0, 7), false, i[6]);
-  b[1][7] = new Knight(new PVector(1, 7), false, i[4]);
-  b[2][7] = new Bishop(new PVector(2, 7), false, i[2]);
-  b[3][7] = new Queen(new PVector(3, 7), false, i[8]);
-  b[4][7] = new King(new PVector(4, 7), false, i[10]);
-  b[5][7] = new Bishop(new PVector(5, 7), false, i[2]);
-  b[6][7] = new Knight(new PVector(6, 7), false, i[4]);
-  b[7][7] = new Rock(new PVector(7, 7), false, i[6]);
   board = new Board(b, 90);
+  board.importFEN();
   size(1000, 1000);
 }
 
@@ -95,6 +49,13 @@ void mouseClicked() {
 
 
 void draw() {
+  println(board.mousePosition());
+  //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
+  //  println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getClass());
+  //  println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
+  //} else {
+  //  println("null");
+  //}
   board.cuadricula();
   board.pieceSelection();
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
@@ -103,6 +64,72 @@ void draw() {
   if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
     board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements() /*board.MovementsBlack()*/, board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
   }
+  board.checkBlack();
+  board.checkWhite();
   board.display();
   board.mousePosition();
+  lee.setInput(loadStrings("Anderssen-Kieseritzky.pgn"));
+  lee.lector();
+  if (keyPressed && key == 'd') {
+    lee.reproductor(cola);
+    cola++;
+    for (int j = 0; j<board.board.length; j++) {
+      for (int i = 0; i<board.board.length; i++) {
+        if (board.board[i][j] != null) {
+          if (board.board[i][j].getTeam()) {
+            switch(board.board[i][j].getClass().getName()) {   
+            case  "Chess$Rock":
+              print("R");
+              break;
+            case "Chess$Knight":
+              print("C");
+              break;
+            case "Chess$Bishop":
+              print("B");
+              break;
+            case "Chess$Queen":
+              print("Q");
+              break;
+            case "Chess$King":
+              print("K");
+              break;
+            case "Chess$Pawn":
+              print("P");
+              break;
+            }
+          } else {
+            switch(board.board[i][j].getClass().getName()) {  
+            case  "Chess$Rock":
+              print("r");
+              break;
+            case "Chess$Knight":
+              print("c");
+              break;
+            case "Chess$Bishop":
+              print("b");
+              break;
+            case "Chess$Queen":
+              print("q");
+              break;
+            case "Chess$King":
+              print("k");
+              break;
+            case "Chess$Pawn":
+              print("p");
+              break;
+            }
+          }
+        } else {
+          print("O");
+        }
+        print("\r");
+      }   
+      print("\n");
+    }
+    key = 0;
+    println("Negras Jaque: " + board.checkWhite());
+    println("Negras Jaque: " + board.checkBlack());
+    println(cola);
+    print("\n");
+  }
 }

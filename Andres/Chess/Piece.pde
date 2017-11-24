@@ -4,6 +4,7 @@ abstract class Piece {
   boolean team;
   PImage icon;
   boolean selection = false;
+  boolean first = true;
 
   //Constructor
   public Piece(PVector p, boolean t, PImage i) {
@@ -11,12 +12,20 @@ abstract class Piece {
     team = t;
     icon = i;
   }
-  
-  public void setSelection(boolean b){
+
+  public void setSelection(boolean b) {
     selection = b;
   }
+
+  public boolean getFirst(){
+    return first;
+  }
   
-  public boolean getSelection(){
+  public void setFirst(boolean f) {
+    this.first = f;
+  }
+
+  public boolean getSelection() {
     return selection;
   }
 
@@ -35,7 +44,7 @@ abstract class Piece {
   public void drawPiece(int s) {
     image(icon, (position.x)*s, (position.y)*s, s, s);
   }
- 
+
   abstract public ArrayList possibleMovements();
 
   public void eat() {
