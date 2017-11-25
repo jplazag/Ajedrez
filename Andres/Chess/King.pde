@@ -17,17 +17,18 @@ class King extends Piece {
         }
       }
     }
-
-    if (this.first && board.board[7][7].getFirst() && board.board[5][7] == null && board.board[6][7] == null && !this.team) {
-      PM.add(new PVector(6, 7));
+    if (board.board[7][7] != null) {
+      if (this.first && board.board[7][7].getFirst() && board.board[5][7] == null && board.board[6][7] == null && !this.team) {
+        PM.add(new PVector(6, 7));
+      }
     }
 
-if (board.board[0][7] != null){
-    if (this.first && board.board[0][7].getFirst() && board.board[3][7] == null && board.board[2][7] == null && board.board[1][7] == null && !this.team) {
-      PM.add(new PVector(2, 7));
-      //board.board[0][7].setPosition(new PVector(3, 7));
+    if (board.board[0][7] != null) {
+      if (this.first && board.board[0][7].getFirst() && board.board[3][7] == null && board.board[2][7] == null && board.board[1][7] == null && !this.team) {
+        PM.add(new PVector(2, 7));
+        //board.board[0][7].setPosition(new PVector(3, 7));
+      }
     }
-}
 
     return PM;
   }

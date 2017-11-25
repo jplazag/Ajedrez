@@ -134,8 +134,10 @@ class Board {
 
   public void cast() {
     if (pieceSelection().x < 8) {
-      if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" && board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(new PVector(6, 7)) != -1 && board[(int)pieceSelection().x][(int)pieceSelection().y].first) {
-        
+      if (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(new PVector(6, 7)) != -1 && board[(int)pieceSelection().x][(int)pieceSelection().y].first) {
+        board[5][7] = board[7][7];
+        board[7][7] = null;
+        board[5][7].setPosition(new PVector(5, 7));
       }
       if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" && board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(new PVector(2, 7)) != -1 && board[(int)pieceSelection().x][(int)pieceSelection().y].first) {
         board[0][7].setPosition(new PVector(3, 7));
@@ -166,13 +168,19 @@ class Board {
   }
 
   public void move() {
-    cast();
     if ((board[(int)mousePosition().x][(int)mousePosition().y] == null) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
       board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
       board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
       board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
       verify = true;
       turn += 1;
+      if (board[6][7] != null) {
+        if (board[6][7].getClass().getName() == "Chess$King" && board[6][7].getFirst()) {
+          board[5][7] = board[7][7];
+          board[7][7] = null;
+          board[5][7].setPosition(new PVector(5, 7));
+        }
+      }
       if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" || board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$Rock") {
         board[(int)pieceSelection().x][(int)pieceSelection().y].setFirst(false);
       }
@@ -324,7 +332,7 @@ class Board {
     if (pieceSelection().x < 8 && pieceSelection().y < 8) {
       move();
       eat();
-    //  deselect();
+      //  deselect();
     }
     if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {
       onlySelection();
