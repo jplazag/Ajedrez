@@ -12,8 +12,6 @@ StringBuffer cadena = new StringBuffer();
 String posicion_inicial() {
 
   lines = loadStrings("ejerciciosFEN.txt");
-  for (int i = 0; i < lines.length; i++) {
-  }
   //for (int x=0;x<lines.length;x++){
   cadena = cadena.append(lines[0]);
   //} 
@@ -52,13 +50,13 @@ void mouseClicked() {
 
 void draw() {
     //println(board.mousePosition());
-  //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
-  //  println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getClass());
-  //  println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
-  //} else {
-  //  println("null");
+  //if// (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
+  //  //println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getClass());
+  //  //println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
+  //} //else {
+  //  //println("null");
   //}
-  
+//  
   board.cuadricula();
   board.pieceSelection();
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
@@ -130,8 +128,6 @@ void draw() {
       print("\n");
     }
     key = 0;
-    // println("Negras Jaque: " + board.checkWhite());
-    //println("Negras Jaque: " + board.checkBlack());
     println(c);
     print("\n");
   }

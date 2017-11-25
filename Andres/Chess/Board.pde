@@ -1,6 +1,8 @@
 class Board {
   Piece[][] board = new Piece[8][8];
   int size;
+  Piece pieceCheckWhite;
+  Piece pieceCheckBlack;
   int turn = 1;
   String fenString;
   boolean verify = false;
@@ -133,16 +135,32 @@ class Board {
   }
 
   public void cast() {
-    if (pieceSelection().x < 8) {
-      if (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(new PVector(6, 7)) != -1 && board[(int)pieceSelection().x][(int)pieceSelection().y].first) {
+    if (board[6][7] != null) {
+      if (board[6][7].getClass().getName() == "Chess$King" && board[6][7].getFirst()) {
         board[5][7] = board[7][7];
         board[7][7] = null;
         board[5][7].setPosition(new PVector(5, 7));
       }
-      if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" && board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(new PVector(2, 7)) != -1 && board[(int)pieceSelection().x][(int)pieceSelection().y].first) {
-        board[0][7].setPosition(new PVector(3, 7));
+    }
+    if (board[2][7] != null) {
+      if (board[2][7].getClass().getName() == "Chess$King" && board[2][7].getFirst()) {
         board[3][7] = board[0][7];
         board[0][7] = null;
+        board[3][7].setPosition(new PVector(3, 7));
+      }
+    }
+    if (board[2][0] != null) {
+      if (board[2][0].getClass().getName() == "Chess$King" && board[2][0].getFirst()) {
+        board[3][0] = board[0][0];
+        board[0][0] = null;
+        board[3][0].setPosition(new PVector(3, 0));
+      }
+    }
+    if (board[6][0] != null) {
+      if (board[6][0].getClass().getName() == "Chess$King" && board[6][0].getFirst()) {
+        board[5][0] = board[7][0];
+        board[7][0] = null;
+        board[5][0].setPosition(new PVector(5, 0));
       }
     }
   }
@@ -174,13 +192,7 @@ class Board {
       board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
       verify = true;
       turn += 1;
-      if (board[6][7] != null) {
-        if (board[6][7].getClass().getName() == "Chess$King" && board[6][7].getFirst()) {
-          board[5][7] = board[7][7];
-          board[7][7] = null;
-          board[5][7].setPosition(new PVector(5, 7));
-        }
-      }
+      cast();
       if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" || board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$Rock") {
         board[(int)pieceSelection().x][(int)pieceSelection().y].setFirst(false);
       }
@@ -256,6 +268,7 @@ class Board {
 
   public boolean checkWhite() {
     boolean check = false;
+    pieceCheckWhite = null;
     PVector kingPosition = new PVector();
     for (int i = 0; i<64; i++) {
       if (board[i/8][i%8] != null) {
@@ -264,10 +277,25 @@ class Board {
         }
       }
     }
-    if (MovementsBlack().indexOf(kingPosition) != -1) {
-      check = true;
+    for (int i = 0; i<64; i++) {
+      if (board[i/8][i%8] != null) {
+        if (board[i/8][i%8].getTeam()) {
+          if (board[i/8][i%8].getClass().getName() != "Chess$Pawn") {
+            if (board[i/8][i%8].possibleMovements().indexOf(kingPosition) != -1) {
+              check = true;
+              pieceCheckWhite = board[i/8][i%8];
+            }
+          } else {
+            if (board[(int)kingPosition.x + 1][(int)kingPosition.y - 1] == board[i/8][i%8] || board[(int)kingPosition.x - 1][(int)kingPosition.y - 1] == board[i/8][i%8]) {
+              check = true;
+              pieceCheckWhite = board[i/8][i%8];
+            }
+          }
+        }
+      }
     }
-    //println("Blancas Jaque: " + check);
+    println(pieceCheckWhite);
+    println("Blancas Jaque: " + check);
     return check;
   }
 
@@ -281,10 +309,26 @@ class Board {
         }
       }
     }
-    if (MovementsWhite().indexOf(kingPosition) != -1) {
-      check = true;
+
+    for (int i = 0; i<64; i++) {
+      if (board[i/8][i%8] != null) {
+        if (!board[i/8][i%8].getTeam()) {
+          if (board[i/8][i%8].getClass().getName() != "Chess$Pawn") {
+            if (board[i/8][i%8].possibleMovements().indexOf(kingPosition) != -1) {
+              check = true;
+              pieceCheckWhite = board[i/8][i%8];
+            }
+          } else {
+            if (board[(int)kingPosition.x + 1][(int)kingPosition.y + 1] == board[i/8][i%8] || board[(int)kingPosition.x - 1][(int)kingPosition.y + 1] == board[i/8][i%8]) {
+              check = true;
+              pieceCheckWhite = board[i/8][i%8];
+            }
+          }
+        }
+      }
     }
-    //println("Negras Jaque: " + check);
+    println(pieceCheckWhite);
+    println("Negras Jaque: " + check);
     return check;
   }
 

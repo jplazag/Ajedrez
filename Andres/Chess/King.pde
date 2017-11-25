@@ -26,10 +26,34 @@ class King extends Piece {
     if (board.board[0][7] != null) {
       if (this.first && board.board[0][7].getFirst() && board.board[3][7] == null && board.board[2][7] == null && board.board[1][7] == null && !this.team) {
         PM.add(new PVector(2, 7));
-        //board.board[0][7].setPosition(new PVector(3, 7));
       }
     }
 
+    if (board.board[0][0] != null) {
+      if (this.first && board.board[0][0].getFirst() && board.board[3][0] == null && board.board[2][0] == null && board.board[1][0] == null && this.team) {
+        PM.add(new PVector(2, 0));
+      }
+    }
+
+    if (board.board[7][0] != null) {
+      if (this.first && board.board[7][0].getFirst() && board.board[6][0] == null && board.board[5][0] == null && this.team) {
+        PM.add(new PVector(6, 0));
+      }
+    }
+    //if (this.team) {
+    //  for (int i = 0; i < board.MovementsWhite().size(); i++) {
+    //    if (PM.indexOf(board.MovementsWhite().get(i)) != -1) {     
+    //      PM.remove(PM.indexOf(board.MovementsWhite().get(i)));
+    //    }
+    //  }
+    //} 
+    if (!this.team) {
+      for (int i = 0; i < board.MovementsBlack().size(); i++) {
+        if (PM.indexOf(board.MovementsBlack().get(i)) != -1) {     
+          PM.remove(PM.indexOf(board.MovementsBlack().get(i)));
+        }
+      }
+    }
     return PM;
   }
 }
