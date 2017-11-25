@@ -286,9 +286,11 @@ class Board {
               pieceCheckWhite = board[i/8][i%8];
             }
           } else {
-            if (board[(int)kingPosition.x + 1][(int)kingPosition.y - 1] == board[i/8][i%8] || board[(int)kingPosition.x - 1][(int)kingPosition.y - 1] == board[i/8][i%8]) {
-              check = true;
-              pieceCheckWhite = board[i/8][i%8];
+            if (kingPosition.x != 7 && kingPosition.x != 1) {
+              if (board[(int)kingPosition.x + 1][(int)kingPosition.y - 1] == board[i/8][i%8] || board[(int)kingPosition.x - 1][(int)kingPosition.y - 1] == board[i/8][i%8]) {
+                check = true;
+                pieceCheckWhite = board[i/8][i%8];
+              }
             }
           }
         }

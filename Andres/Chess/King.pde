@@ -40,13 +40,14 @@ class King extends Piece {
         PM.add(new PVector(6, 0));
       }
     }
-    //if (this.team) {
-    //  for (int i = 0; i < board.MovementsWhite().size(); i++) {
-    //    if (PM.indexOf(board.MovementsWhite().get(i)) != -1) {     
-    //      PM.remove(PM.indexOf(board.MovementsWhite().get(i)));
-    //    }
-    //  }
-    //} 
+  if (this.selection){
+    if (this.team) {
+      for (int i = 0; i < board.MovementsWhite().size(); i++) {
+        if (PM.indexOf(board.MovementsWhite().get(i)) != -1) {     
+          PM.remove(PM.indexOf(board.MovementsWhite().get(i)));
+        }
+      }
+    } 
     if (!this.team) {
       for (int i = 0; i < board.MovementsBlack().size(); i++) {
         if (PM.indexOf(board.MovementsBlack().get(i)) != -1) {     
@@ -54,6 +55,7 @@ class King extends Piece {
         }
       }
     }
+  }
     return PM;
   }
 }

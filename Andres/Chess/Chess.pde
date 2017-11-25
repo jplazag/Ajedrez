@@ -32,7 +32,7 @@ void setup() {
   i[9] = loadImage("ReinaN.png");
   i[10] = loadImage("ReyB.png");
   i[11] = loadImage("ReyN.png");
-  
+
   board = new Board(b, 90);
   board.importFEN();
   lee.setInput(loadStrings("Anderssen-Kieseritzky.pgn"));
@@ -49,14 +49,14 @@ void mouseClicked() {
 
 
 void draw() {
-    //println(board.mousePosition());
+  //println(board.mousePosition());
   //if// (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
   //  //println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getClass());
   //  //println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
   //} //else {
   //  //println("null");
   //}
-//  
+  //  
   board.cuadricula();
   board.pieceSelection();
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
