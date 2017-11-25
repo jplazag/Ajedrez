@@ -1,7 +1,7 @@
 PImage[] i = new PImage[12];
 ArrayList<PVector> posible;
 String b;
-int cola = 0;
+int c = 0;
 Reader lee = new Reader();
 Board board;
 boolean selection = false;
@@ -34,9 +34,11 @@ void setup() {
   i[9] = loadImage("ReinaN.png");
   i[10] = loadImage("ReyB.png");
   i[11] = loadImage("ReyN.png");
-
+  
   board = new Board(b, 90);
   board.importFEN();
+  lee.setInput(loadStrings("Anderssen-Kieseritzky.pgn"));
+  lee.lector();
   size(1000, 1000);
 }
 
@@ -49,13 +51,14 @@ void mouseClicked() {
 
 
 void draw() {
-  println(board.mousePosition());
+    //println(board.mousePosition());
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
   //  println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getClass());
   //  println(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
   //} else {
   //  println("null");
   //}
+  
   board.cuadricula();
   board.pieceSelection();
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
@@ -68,15 +71,15 @@ void draw() {
   board.checkWhite();
   board.display();
   board.mousePosition();
-  lee.setInput(loadStrings("Anderssen-Kieseritzky.pgn"));
-  lee.lector();
+
   if (keyPressed && key == 'd') {
-    lee.reproductor(cola);
-    cola++;
+    lee.reproductor(c);
+    println(lee.plays.get(c));
+    c++;
     for (int j = 0; j<board.board.length; j++) {
       for (int i = 0; i<board.board.length; i++) {
         if (board.board[i][j] != null) {
-          if (board.board[i][j].getTeam()) {
+          if (!board.board[i][j].getTeam()) {
             switch(board.board[i][j].getClass().getName()) {   
             case  "Chess$Rock":
               print("R");
@@ -127,9 +130,9 @@ void draw() {
       print("\n");
     }
     key = 0;
-    println("Negras Jaque: " + board.checkWhite());
-    println("Negras Jaque: " + board.checkBlack());
-    println(cola);
+    // println("Negras Jaque: " + board.checkWhite());
+    //println("Negras Jaque: " + board.checkBlack());
+    println(c);
     print("\n");
   }
 }
