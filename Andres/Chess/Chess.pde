@@ -1,4 +1,5 @@
 PImage[] i = new PImage[12];
+PImage whiteSq,blackSq;
 ArrayList<PVector> posible;
 String b;
 int c = 0;
@@ -32,7 +33,9 @@ void setup() {
   i[9] = loadImage("ReinaN.png");
   i[10] = loadImage("ReyB.png");
   i[11] = loadImage("ReyN.png");
-
+  
+  whiteSq=loadImage("cuadro_Blanco.png");
+  blackSq=loadImage("cuadro_Negro.png");
   board = new Board(b, 90);
   board.importFEN();
   lee.setInput(loadStrings("Anderssen-Kieseritzky.pgn"));

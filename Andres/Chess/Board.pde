@@ -120,9 +120,9 @@ class Board {
     translate(width/2-size*4, (height/2-size*4));
     for (int i = 0; i < 64; i += 2) {
       fill(255, 200, 100);
-      rect(((i%8)+(i/8)%2)*size, (i/8)*size, size, size);
+      image(whiteSq, ((i%8)+(i/8)%2)*size, (i/8)*size);
       fill(150, 50, 20);
-      rect(((i+1)%8-((i+1)/8)%2)*size, (i/8)*size, size, size);
+      image(blackSq, ((i+1)%8-((i+1)/8)%2)*size, (i/8)*size);
     }
     popMatrix();
   }
