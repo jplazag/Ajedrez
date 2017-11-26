@@ -37,7 +37,8 @@ void setup() {
   board.importFEN();
   lee.setInput(loadStrings("Anderssen-Kieseritzky.pgn"));
   lee.lector();
-  size(1000, 1000);
+  //size(1000, 1000);
+  fullScreen();
 }
 
 void mouseReleased() {
