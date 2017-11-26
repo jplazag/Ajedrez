@@ -17,10 +17,10 @@ abstract class Piece {
     selection = b;
   }
 
-  public boolean getFirst(){
+  public boolean getFirst() {
     return first;
   }
-  
+
   public void setFirst(boolean f) {
     this.first = f;
   }
@@ -42,7 +42,10 @@ abstract class Piece {
   }
 
   public void drawPiece(int s) {
+    pushMatrix();
+    translate(width/2-s*4, height/2-s*4);
     image(icon, (position.x)*s, (position.y)*s, s, s);
+    popMatrix();
   }
 
   abstract public ArrayList possibleMovements();

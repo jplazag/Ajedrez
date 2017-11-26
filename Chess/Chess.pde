@@ -1,4 +1,13 @@
+import ddf.minim.*;
+//import processing.video.*;
+AudioPlayer m;
+Minim minim;
+boolean ejecutar = false; 
+
+//Movie myMovie;
+
 PImage[] i = new PImage[12];
+PImage whiteSq, blackSq;
 ArrayList<PVector> posible;
 String b;
 int c = 0, a = -1;
@@ -123,6 +132,11 @@ public void setupBotones() {
 
 void setup() {
   fullScreen();
+  //  myMovie = new Movie(this, "animacion.mp4");
+  // myMovie.loop();
+  //frameRate(700);
+  minim = new Minim(this);
+  m = minim.loadFile("aaa.wav");
   setupBotones();
   b = posicion_inicial();
   i[0] = loadImage("PeonB.png");
@@ -137,7 +151,8 @@ void setup() {
   i[9] = loadImage("ReinaN.png");
   i[10] = loadImage("ReyB.png");
   i[11] = loadImage("ReyN.png");
-
+  whiteSq=loadImage("cuadro_Blanco.png");
+  blackSq=loadImage("cuadro_Negro.png");
   board = new Board(b, 90);
   board.importFEN();
   //elegido = new Board(b, 90);
@@ -208,6 +223,8 @@ void mouseClicked() {
 
 
 void draw() {
+  // tint(255, 20);
+  //  image(myMovie, 10, 10);
   background(250);
   textFont(loadFont("OCRAExtended-48.vlw"));
   println(instrucciones, nivel);
@@ -222,11 +239,14 @@ void draw() {
     butGB.cambio();
     butGB.draw();
     butGB.borrar();
-    board.cuadricula();
+     board.cuadricula();
     board.pieceSelection();
-    if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
-      board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements() /*board.MovementsBlack()*/, board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
-    }
+  //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
+  //  board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.MovementsWhite(), !board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
+  //}
+  if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
+    board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements() /*board.MovementsBlack()*/, board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
+  }
     board.checkBlack();
     board.checkWhite();
     board.display();
@@ -256,11 +276,6 @@ void draw() {
       butMA[i].draw();
       butGB.cambio();
       butGB.draw();
-    }
-    lee.setInput(loadStrings(partida));
-    lee.lector();
-    for (int x = 0; x <lee.plays.size(); x++) {
-      println(x + " " + lee.plays.get(x));
     }
     break;
   case 5:
@@ -498,7 +513,7 @@ void draw() {
         key = 0;
         // println("Negras Jaque: " + board.checkWhite());
         //println("Negras Jaque: " + board.checkBlack());
-       // println(c);
+        // println(c);
         print("\n");
       }
       if (keyPressed && key == 'c'&& a<lee.playsFEN.size()-1) {
@@ -554,4 +569,15 @@ void draw() {
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
   //  board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.MovementsWhite(), !board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
   //}
+  if (mousePressed) {
+    if (m.position() != m.length()|| m.position() > m.length()/2) {
+      m.rewind();
+      m.play();
+    } else if (m.position() == 0) {
+      m.play();
+    }
+  }
 }
+/*void movieEvent(Movie m) {
+ m.read();
+ }*/
