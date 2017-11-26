@@ -16,7 +16,8 @@ class Knight extends Piece {
           PM.add(new PVector(i/8, i%8));
         }
       }
-    } 
+    }
+    
     return PM;
   }
 }

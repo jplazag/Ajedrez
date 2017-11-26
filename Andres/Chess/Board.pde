@@ -1,8 +1,7 @@
 class Board {
   Piece[][] board = new Piece[8][8];
   int size;
-  Piece pieceCheckWhite;
-  Piece pieceCheckBlack;
+  Piece pieceCheck;
   int turn = 1;
   String fenString;
   boolean verify = false;
@@ -224,6 +223,36 @@ class Board {
     return p;
   }
 
+  public ArrayList movementsUnderCheck() {
+    ArrayList<PVector> MUC = new ArrayList<PVector>();
+    if (pieceCheck != null) {
+      if (pieceCheck.getTeam()) {
+        MUC = board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements();
+        if (pieceCheck.getClass().getName() == "Chess$Knight" || pieceCheck.getClass().getName() == "Chess$Pawn") {
+          MUC.add(pieceCheck.getPosition());
+        }
+        if (pieceCheck.getClass().getName() == "Chess$Bishop") {
+        }
+        if (pieceCheck.getClass().getName() == "Chess$Rock") {
+        }
+        if (pieceCheck.getClass().getName() == "Chess$Queen") {
+        }
+      } else {
+        MUC = board[(int)kingPositionBlack().x][(int)kingPositionBlack().y].possibleMovements();
+        if (pieceCheck.getClass().getName() == "Chess$Knight" || pieceCheck.getClass().getName() == "Chess$Pawn") {
+          MUC.add(pieceCheck.getPosition());
+        }
+        if (pieceCheck.getClass().getName() == "Chess$Bishop") {
+        }
+        if (pieceCheck.getClass().getName() == "Chess$Rock") {
+        }
+        if (pieceCheck.getClass().getName() == "Chess$Queen") {
+        }
+      }
+    }
+    return MUC;
+  }
+
   public ArrayList MovementsWhite() {
     ArrayList<PVector> PMB = new ArrayList<PVector>();
     ArrayList<PVector> p = new ArrayList<PVector>();
@@ -266,9 +295,7 @@ class Board {
     return PMB;
   }
 
-  public boolean checkWhite() {
-    boolean check = false;
-    pieceCheckWhite = null;
+  public PVector kingPositionWhite() {
     PVector kingPosition = new PVector();
     for (int i = 0; i<64; i++) {
       if (board[i/8][i%8] != null) {
@@ -277,32 +304,10 @@ class Board {
         }
       }
     }
-    for (int i = 0; i<64; i++) {
-      if (board[i/8][i%8] != null) {
-        if (board[i/8][i%8].getTeam()) {
-          if (board[i/8][i%8].getClass().getName() != "Chess$Pawn") {
-            if (board[i/8][i%8].possibleMovements().indexOf(kingPosition) != -1) {
-              check = true;
-              pieceCheckWhite = board[i/8][i%8];
-            }
-          } else {
-            if (kingPosition.x != 7 && kingPosition.x != 1) {
-              if (board[(int)kingPosition.x + 1][(int)kingPosition.y - 1] == board[i/8][i%8] || board[(int)kingPosition.x - 1][(int)kingPosition.y - 1] == board[i/8][i%8]) {
-                check = true;
-                pieceCheckWhite = board[i/8][i%8];
-              }
-            }
-          }
-        }
-      }
-    }
-    println(pieceCheckWhite);
-    println("Blancas Jaque: " + check);
-    return check;
+    return kingPosition;
   }
 
-  public boolean checkBlack() {
-    boolean check = false;
+  public PVector kingPositionBlack() {
     PVector kingPosition = new PVector();
     for (int i = 0; i<64; i++) {
       if (board[i/8][i%8] != null) {
@@ -312,25 +317,76 @@ class Board {
       }
     }
 
+    return kingPosition;
+  }
+
+  public boolean checkWhite() {
+    boolean check = false;
+    pieceCheck = null;
+
     for (int i = 0; i<64; i++) {
       if (board[i/8][i%8] != null) {
-        if (!board[i/8][i%8].getTeam()) {
+        if (board[i/8][i%8].getTeam()) {
           if (board[i/8][i%8].getClass().getName() != "Chess$Pawn") {
-            if (board[i/8][i%8].possibleMovements().indexOf(kingPosition) != -1) {
+            if (board[i/8][i%8].possibleMovements().indexOf(kingPositionWhite()) != -1) {
               check = true;
-              pieceCheckWhite = board[i/8][i%8];
+              pieceCheck = board[i/8][i%8];
             }
           } else {
-            if (board[(int)kingPosition.x + 1][(int)kingPosition.y + 1] == board[i/8][i%8] || board[(int)kingPosition.x - 1][(int)kingPosition.y + 1] == board[i/8][i%8]) {
-              check = true;
-              pieceCheckWhite = board[i/8][i%8];
+            if (kingPositionWhite().x != 7) {
+              if (board[(int)kingPositionWhite().x + 1][(int)kingPositionWhite().y - 1] == board[i/8][i%8]) {
+                check = true;
+                pieceCheck = board[i/8][i%8];
+              }
+            }
+            if (kingPositionWhite().x != 0) {
+              if ( board[(int)kingPositionWhite().x - 1][(int)kingPositionWhite().y - 1] == board[i/8][i%8]) {
+                check = true;
+                pieceCheck = board[i/8][i%8];
+              }
             }
           }
         }
       }
     }
-    println(pieceCheckWhite);
-    println("Negras Jaque: " + check);
+    if (board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().size() != 0) {
+      println(board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().get(0).getClass());
+    }
+    //println(pieceCheck);
+    //println("Blancas Jaque: " + check);
+    return check;
+  }
+
+  public boolean checkBlack() {
+    boolean check = false;
+
+    for (int i = 0; i<64; i++) {
+      if (board[i/8][i%8] != null) {
+        if (!board[i/8][i%8].getTeam()) {
+          if (board[i/8][i%8].getClass().getName() != "Chess$Pawn") {
+            if (board[i/8][i%8].possibleMovements().indexOf(kingPositionBlack()) != -1) {
+              check = true;
+              pieceCheck = board[i/8][i%8];
+            }
+          } else {
+            if (kingPositionBlack().x != 7) {
+              if (board[(int)kingPositionBlack().x + 1][(int)kingPositionBlack().y + 1] == board[i/8][i%8]) {
+                check = true;
+                pieceCheck = board[i/8][i%8];
+              }
+            }
+            if (kingPositionBlack().x != 0) {
+              if ( board[(int)kingPositionBlack().x - 1][(int)kingPositionBlack().y + 1] == board[i/8][i%8]) {
+                check = true;
+                pieceCheck = board[i/8][i%8];
+              }
+            }
+          }
+        }
+      }
+    }
+    //println(pieceCheck);
+    //println("Negras Jaque: " + check);
     return check;
   }
 
