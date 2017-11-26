@@ -15,19 +15,25 @@ public class ImButton extends Button {
     imagArray=imgAr;
   }
 
-  ImButton( PVector t, PImage[] img, int bh, int bw, int v) {
-    super(t, bh, bw, v);
+  ImButton( PVector t, PImage[] img, int v, boolean l) {
+    super(t, v, l);
     setImagArr(img);
   }
 
   public void imInicial() {
     this.imag=this.imagArray[2];
+    setButtonHeight(imag.height);
+    setButtonWidth(imag.width);
   }
   public void imCambio1() {
     this.imag=this.imagArray[1];
+    setButtonHeight(imag.height);
+    setButtonWidth(imag.width);
   }
   public void imCambio2() {
     this.imag=this.imagArray[0];
+    setButtonHeight(imag.height);
+    setButtonWidth(imag.width);
   }
 
   public void drawButton() {

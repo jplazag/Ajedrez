@@ -1,7 +1,7 @@
 public class ColButton extends Button {
   protected String buttonTxt=""; 
   protected float txtscl=1;
-  protected color c;
+  protected color c, txtc;
   protected color[] colorArray= new color[3];
 
   protected float textscale() {
@@ -22,6 +22,12 @@ public class ColButton extends Button {
   public void setColor (color col) {
     this.c=col;
   }
+  public color txtcol() {
+    return this.txtc;
+  }
+  public void setTextColor (color txtcol) {
+    this.txtc=txtcol;
+  }
   public color[] colArr() {
     return this.colorArray;
   }
@@ -29,11 +35,14 @@ public class ColButton extends Button {
     this.colorArray=colAr;
   }
 
-  ColButton(PVector t, color[] col, String tx, int bh, int bw, int v, float ts) {
-    super(t, bh, bw, v);
+  ColButton(PVector t, color[] col, color txtcol, String tx, int bh, int bw, int v, float ts, boolean l) {
+    super(t, v, l);
     setColorArr (col);
     setbuttonText(tx);
     setTextscale(ts);
+    setTextColor(txtcol);
+    setButtonHeight(bh);
+    setButtonWidth(bw);
   }
   public void imInicial() {
     this.c=this.colorArray[2];
@@ -49,8 +58,10 @@ public class ColButton extends Button {
     fill(this.c);
     rectMode(CENTER);
     textAlign(CENTER, CENTER);
+
     rect(this.translation.x, this.translation.y, this.BWidth, this.BHeight);
-    fill(this.c-150);
+    fill(this.txtc);
+    textSize(txtscl*20);
     text(this.buttonTxt, this.translation.x, this.translation.y);
   }
 }

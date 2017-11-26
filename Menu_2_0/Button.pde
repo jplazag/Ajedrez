@@ -1,38 +1,43 @@
 abstract class Button {
   protected PVector translation;
   protected int BWidth, BHeight, value;
-  protected boolean pressed;
+  protected boolean pressed, lvl;
 
-  protected int buttonValue() {
+  protected int getButtonValue() {
     return value;
   }
   protected void setButtonValue(int v) {
     value=v;
   }
-  protected int ButtonWidth() {
+  protected int getButtonWidth() {
     return BWidth;
   }
   protected void setButtonWidth(int bw) {
     BWidth=bw;
   }
-  protected int ButtonHeight() {
+  protected int getButtonHeight() {
     return BHeight;
   }
   protected void setButtonHeight(int bh) {
     BHeight=bh;
   }
 
-  public PVector translation() {
+  public PVector getTranslation() {
     return translation;
   }
   public void setTranslation (PVector t) {
     translation =t;
   }
-  Button(PVector t, int bh, int bw, int v) {
+  public  boolean getLevl() {
+    return lvl;
+  }
+  public  void setLevl(boolean l) {
+    lvl=l;
+  }
+  Button(PVector t, int v, boolean l) {
     setTranslation (t);
-    setButtonHeight(bh);
-    setButtonWidth(bw);
     setButtonValue(v);
+    setLevl(l);
   }
   abstract void drawButton();
   abstract void imInicial();
@@ -59,8 +64,18 @@ abstract class Button {
     popMatrix();
   }
   public void mouseReleased() {
-    if (pressed==true) {
-      nivel=this.value;
+    if (this.pressed==true) {
+      if (lvl) {
+        for (int j=1; j<4; j++) {
+          if (nivel==(20+j)) {
+              instrucciones=(j*11);
+          }
+        }
+        nivel=this.value;
+      }
+      if (!lvl) {
+        instrucciones+=this.value;
+      }
       pressed=false;
     }
   }
