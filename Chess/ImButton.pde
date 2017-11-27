@@ -15,7 +15,7 @@ public class ImButton extends Button {
     imagArray=imgAr;
   }
 
-  ImButton( PVector t, PImage[] img, int v, boolean l) {
+  ImButton( PVector t, PImage[] img, int v, int l) {
     super(t, v, l);
     setImagArr(img);
   }

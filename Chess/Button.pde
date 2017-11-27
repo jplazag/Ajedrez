@@ -1,7 +1,8 @@
 abstract class Button {
   protected PVector translation;
   protected int BWidth, BHeight, value;
-  protected boolean pressed, lvl;
+  protected boolean pressed;
+  protected int lvl;
 
   protected int getButtonValue() {
     return value;
@@ -28,13 +29,13 @@ abstract class Button {
   public void setTranslation (PVector t) {
     translation =t;
   }
-  public  boolean getLevl() {
+  public  int getLevl() {
     return lvl;
   }
-  public  void setLevl(boolean l) {
+  public  void setLevl(int l) {
     lvl=l;
   }
-  Button(PVector t, int v, boolean l) {
+  Button(PVector t, int v, int l) {
     setTranslation (t);
     setButtonValue(v);
     setLevl(l);
@@ -65,17 +66,30 @@ abstract class Button {
   }
   public void mouseReleased() {
     if (this.pressed==true) {
-      if (lvl) {
+      if (lvl==0) {
         for (int j=1; j<4; j++) {
           if (nivel==(20+j)) {
-              instrucciones=(j*11);
+            instrucciones=(j*11);
           }
         }
         nivel=this.value;
       }
-      if (!lvl) {
+      if (lvl==1) {
         instrucciones+=this.value;
       }
+      if (lvl==2) {
+          if (a<lee.playsFEN.size()-1) {
+            a+= this.value;
+            if (0<=a && a < lee.playsFEN.size()) {
+              board.setFEN(lee.playsFEN.get(a));
+              board.reset();
+              board.importFEN();
+              board.turnIntoFEN(a);
+
+              key = 0;
+            }
+          }
+        }
       pressed=false;
     }
   }

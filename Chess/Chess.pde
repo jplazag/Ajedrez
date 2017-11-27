@@ -32,7 +32,7 @@ String posicion_inicial() {
 
 //******************************Menu
 //Inicialización de posicion botones
-PVector[] botonesMPPos = new PVector[5], botonesCJPos = new PVector[3], botonesMAPos=new PVector[9], botonesMNPos=new PVector[9], botonesArrPos= new PVector[3];
+PVector[] botonesMPPos = new PVector[5], botonesCJPos = new PVector[3], botonesMAPos=new PVector[9], botonesMNPos=new PVector[9], botonesArrPos= new PVector[3], botonesfPos= new PVector[3];
 PVector botonGBPos, flechaIzq, flechaDer, botonGBAPos, botonGBPPos;
 //Contador de nivel y instrucciones
 int nivel=0, instrucciones=0;
@@ -50,7 +50,7 @@ PImage cursor;
 PFont fuente;
 
 //Inicializacion Botones
-ImButton[] butMP = new ImButton[5], butCJ = new ImButton [3], butArrows= new ImButton [2];
+ImButton[] butMP = new ImButton[5], butCJ = new ImButton [3], butArrows= new ImButton [2], flechita= new ImButton [2];
 ColButton[] butMA=new ColButton[9], butMN=new ColButton[9];
 ColButton butGB, butFI, butFD, butGBA, butGBP;
 
@@ -82,6 +82,8 @@ public void setupBotones() {
 
   botonesArrPos[0]= new PVector(2*width/5, 9*height/10);
   botonesArrPos[1]= new PVector(3*width/5, 9*height/10);
+  botonesfPos[0]= new PVector((width*7/8)-50, (height*7/8)-100);
+  botonesfPos[1]= new PVector((width*7/8)+50, (height*7/8)-100);
 
   for (int i=0; i<botonesCJPos.length; i++) {
     botonesCJPos[i] =new PVector((i+1)*width/4, 150);
@@ -104,30 +106,32 @@ public void setupBotones() {
 
   //Inicializacion de los constructores
   for (int j=0; j<butMP.length; j++) {
-    butMP[j] =new ImButton(botonesMPPos[j], imagenesMP[j], valueMP[j], true);
+    butMP[j] =new ImButton(botonesMPPos[j], imagenesMP[j], valueMP[j], 0);
   }
   for (int k=0; k<butCJ.length; k++) {
-    butCJ[k]=new ImButton (botonesCJPos[k], imagenesCJ[k], valueCJ[k], true);
+    butCJ[k]=new ImButton (botonesCJPos[k], imagenesCJ[k], valueCJ[k], 0);
   }
   for (int j=0; j<3; j++) {
     for (int i=(j*3); i<(j*3)+3; i++) {
-      butMN[i] = new ColButton (botonesMNPos[i], colorBoton[j], color(0), "Apertura "+(i+1), 70, 200, valueAP[i], 1f, true);
+      butMN[i] = new ColButton (botonesMNPos[i], colorBoton[j], color(0), "Apertura "+(i+1), 70, 200, valueAP[i], 1f, 0);
     }
   }
   for (int j=0; j<3; j++) {
     for (int i=(j*3); i<(j*3)+3; i++) {
-      butMA[i] = new ColButton (botonesMAPos[i], colorBoton[j], color(0), "Acertijo "+(i+1), 70, 200, valueAA[i], 1f, true);
+      butMA[i] = new ColButton (botonesMAPos[i], colorBoton[j], color(0), "Acertijo "+(i+1), 70, 200, valueAA[i], 1f, 0);
     }
   }
 
-  butArrows[0]= new ImButton (botonesArrPos[0], leftArrow, -1, false);
-  butArrows[1]= new ImButton (botonesArrPos[1], rigthArrow, 1, false);
+  butArrows[0]= new ImButton (botonesArrPos[0], leftArrow, -1, 1);
+  butArrows[1]= new ImButton (botonesArrPos[1], rigthArrow, 1, 1);
+  flechita[0]= new ImButton (botonesfPos[0], leftArrow, -1, 2);
+  flechita[1]= new ImButton (botonesfPos[1], rigthArrow, 1, 2);
 
-  butGB= new ColButton (botonGBPos, colorGeneral, color(0), "Menú principal", 70, 200, 0, 1f, true);
-  butFI= new ColButton (flechaIzq, colorGeneral, color(0), "←", 70, 70, 20, 1f, true);
-  butFD= new ColButton (flechaDer, colorGeneral, color(0), "→", 70, 70, 20, 1f, true);
-  butGBP= new ColButton (botonGBAPos, colorGeneral, color(0), "Aperturas", 70, 200, 3, 1f, true);
-  butGBA= new ColButton (botonGBAPos, colorGeneral, color(0), "Acertijos", 70, 200, 4, 1f, true);
+  butGB= new ColButton (botonGBPos, colorGeneral, color(0), "Menú principal", 70, 200, 0, 1f, 0);
+  butFI= new ColButton (flechaIzq, colorGeneral, color(0), "←", 70, 70, 20, 1f, 0);
+  butFD= new ColButton (flechaDer, colorGeneral, color(0), "→", 70, 70, 20, 1f, 0);
+  butGBP= new ColButton (botonGBAPos, colorGeneral, color(0), "Aperturas", 70, 200, 3, 1f, 0);
+  butGBA= new ColButton (botonGBAPos, colorGeneral, color(0), "Acertijos", 70, 200, 4, 1f, 0);
 }
 
 void setup() {
@@ -239,14 +243,14 @@ void draw() {
     butGB.cambio();
     butGB.draw();
     butGB.borrar();
-     board.cuadricula();
+    board.cuadricula();
     board.pieceSelection();
-  //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
-  //  board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.MovementsWhite(), !board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
-  //}
-  if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
-    board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements() /*board.MovementsBlack()*/, board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
-  }
+    //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
+    //  board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.MovementsWhite(), !board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
+    //}
+    if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
+      board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements() /*board.MovementsBlack()*/, board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
+    }
     board.checkBlack();
     board.checkWhite();
     board.display();
@@ -381,10 +385,12 @@ void draw() {
   }
   for (int i=31; i<40; i++) {
     if (nivel==i) {
-      butFI.cambio();
-      butFI.draw();
-      butFD.cambio();
-      butFD.draw();
+      flechita[0].cambio();
+      flechita[0].draw();
+   //   flechita[0].atras();
+      flechita[1].cambio();
+      flechita[1].draw();
+     // flechita[1].adelante();
       butGBP.cambio();
       butGBP.draw();
       butGBP.borrar1();
@@ -435,7 +441,7 @@ void draw() {
         println(c);
         print("\n");
       }
-      if (keyPressed && key == 'c' && a<lee.playsFEN.size()-1) {
+      if (keyPressed && key == 'c'&& a<lee.playsFEN.size()-1) {
         a++;
         if (0<=a && a < lee.playsFEN.size())
           board.setFEN(lee.playsFEN.get(a));

@@ -35,7 +35,7 @@ public class ColButton extends Button {
     this.colorArray=colAr;
   }
 
-  ColButton(PVector t, color[] col, color txtcol, String tx, int bh, int bw, int v, float ts, boolean l) {
+  ColButton(PVector t, color[] col, color txtcol, String tx, int bh, int bw, int v, float ts, int l) {
     super(t, v, l);
     setColorArr (col);
     setbuttonText(tx);
@@ -75,6 +75,34 @@ public class ColButton extends Button {
       board.setFEN(posicion_inicial());
       board.reset();
       board.importFEN();
+    }
+  }
+  public void adelante() {
+    if (this.pressed) {
+      if ( a<lee.playsFEN.size()-1) {
+        a++;
+        if (0<=a && a < lee.playsFEN.size())
+          board.setFEN(lee.playsFEN.get(a));
+        board.reset();
+        board.importFEN();
+        board.turnIntoFEN(a);
+
+        key = 0;
+      }
+    }
+  }
+  public void atras() {
+    if (this.pressed) {
+      if (keyPressed && key == 'x'&& a>0) {
+        a--;
+        if ( 0<=a && a < lee.playsFEN.size())
+          board.setFEN(lee.playsFEN.get(a));
+        board.reset();
+        board.importFEN();
+        //turnIntoFEN(false, a);
+
+        key = 0;
+      }
     }
   }
 }
