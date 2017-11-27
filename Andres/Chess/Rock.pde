@@ -58,6 +58,18 @@ class Rock extends Piece {
         PM.remove(indice);
       }
     }
+
+    if (this.selection) {
+      for (int i = 0; i< 64; i++) {
+        if (board.movementsUnderCheck().size() != 0) {
+          if ((board.movementsUnderCheck().indexOf(new PVector(i/8, i%8)) == -1)) {
+            if (PM.indexOf(new PVector(i/8, i%8)) != -1) {
+              PM.remove(PM.indexOf(new PVector(i/8, i%8)));
+            }
+          }
+        }
+      }
+    }
     return PM;
   }
 }

@@ -40,8 +40,8 @@ void setup() {
   board.importFEN();
   lee.setInput(loadStrings("Anderssen-Kieseritzky.pgn"));
   lee.lector();
-  //size(1000, 1000);
-  fullScreen();
+  size(720,720);
+  //fullScreen();
 }
 
 void mouseReleased() {
@@ -66,8 +66,9 @@ void draw() {
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
   //  board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.MovementsWhite(), !board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
   //}
+  //println(board.movementsUnderCheck());
   if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
-    board.PM(board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements() /*board.MovementsBlack()*/, board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
+    board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.movementsUnderCheck(), board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
   }
   board.checkBlack();
   board.checkWhite();

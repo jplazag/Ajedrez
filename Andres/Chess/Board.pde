@@ -128,8 +128,10 @@ class Board {
   }
 
   public void deselect() {
-    if ((board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) == -1)) {
-      board[(int)pieceSelection().x][(int)pieceSelection().y].setSelection(false);
+    if (pieceSelection().x < 8 && pieceSelection().y < 8) {
+      if ((board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) == -1)) {
+        board[(int)pieceSelection().x][(int)pieceSelection().y].setSelection(false);
+      }
     }
   }
 
@@ -220,7 +222,7 @@ class Board {
         p.y=i%8;
       }
     }
-    println(p);
+    //println(p);
     return p;
   }
 
@@ -228,37 +230,88 @@ class Board {
     ArrayList<PVector> MUC = new ArrayList<PVector>();
     if (pieceCheck != null) {
       if (pieceCheck.getTeam()) {
-        if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$Knight") {
-          MUC = board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements();
+        if (pieceSelection().x < 8 && pieceSelection().y < 8) {
+          if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King") {
+            MUC = board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements();
+          } else {
+            MUC.add(pieceCheck.getPosition());
+            if (pieceCheck.getClass().getName() == "Chess$Bishop" || pieceCheck.getClass().getName() == "Chess$Queen") {
+              if (pieceCheck.getPosition().x < kingPositionWhite().x && pieceCheck.getPosition().y < kingPositionWhite().y) {
+                for (int i = 1; i< kingPositionWhite().x - pieceCheck.getPosition().x; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y + i));
+                }
+              }
+              if (pieceCheck.getPosition().x < kingPositionWhite().x && pieceCheck.getPosition().y > kingPositionWhite().y) {
+                for (int i = 0; i< kingPositionWhite().x - pieceCheck.getPosition().x; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x +i, pieceCheck.getPosition().y - i));
+                }
+              }
+              if (pieceCheck.getPosition().x > kingPositionWhite().x && pieceCheck.getPosition().y < kingPositionWhite().y) {
+                for (int i = 1; i <pieceCheck.getPosition().x - kingPositionWhite().x; i++) {
+                  MUC.add(new PVector((int)kingPositionWhite().x + i, (int)kingPositionWhite().y - i));
+                }
+              }
+              if (pieceCheck.getPosition().x > kingPositionWhite().x && pieceCheck.getPosition().y > kingPositionWhite().y) {
+                for (int i = 1; i <pieceCheck.getPosition().x - kingPositionWhite().x; i++) {
+                  MUC.add(new PVector((int)kingPositionWhite().x + i, (int)kingPositionWhite().y + i));
+                }
+              }
+            }
+            if (pieceCheck.getClass().getName() == "Chess$Rock" || pieceCheck.getClass().getName() == "Chess$Queen") {
+              if (pieceCheck.getPosition().x < kingPositionWhite().x) {
+                for (int i = 1; i< kingPositionWhite().x - pieceCheck.getPosition().x; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y));
+                }
+              }
+              if (pieceCheck.getPosition().x > kingPositionWhite().x) {
+                for (int i = 1; i< pieceCheck.getPosition().x - kingPositionWhite().x; i++) {
+                  MUC.add(new PVector(kingPositionWhite().x + i, kingPositionWhite().y));
+                }
+              }
+              if (pieceCheck.getPosition().y > kingPositionWhite().y) {
+                for (int i = 1; i< pieceCheck.getPosition().y - kingPositionWhite().y; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x, kingPositionWhite().y + i));
+                }
+              }
+              if (pieceCheck.getPosition().y < kingPositionWhite().y) {
+                for (int i = 1; i<  kingPositionWhite().y -pieceCheck.getPosition().y; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x, pieceCheck.getPosition().y + i));
+                }
+              }
+            }
+          }
+        }
+      } 
+      if (!pieceCheck.getTeam()) {
+        if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King") {
+          MUC = board[(int)kingPositionBlack().x][(int)kingPositionBlack().y].possibleMovements();
         } else {
           MUC.add(pieceCheck.getPosition());
           if (pieceCheck.getClass().getName() == "Chess$Bishop" || pieceCheck.getClass().getName() == "Chess$Queen") {
-            if (pieceCheck.getPosition().x < kingPositionWhite().x && pieceCheck.getPosition().y < kingPositionWhite().y) {
-              for (int i = (int)pieceCheck.getPosition().x; i< kingPositionWhite().x; i++) {
+            if (pieceCheck.getPosition().x < kingPositionBlack().x && pieceCheck.getPosition().y < kingPositionBlack().y) {
+              for (int i = (int)pieceCheck.getPosition().x; i< kingPositionBlack().x; i++) {
                 MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y + i));
               }
             }
-            if (pieceCheck.getPosition().x < kingPositionWhite().x && pieceCheck.getPosition().y > kingPositionWhite().y) {
-              for (int i = (int)pieceCheck.getPosition().x; i< kingPositionWhite().x; i++) {
-                MUC.add(new PVector(pieceCheck.getPosition().x +1, pieceCheck.getPosition().y -1));
+            if (pieceCheck.getPosition().x < kingPositionBlack().x && pieceCheck.getPosition().y > kingPositionBlack().y) {
+              for (int i = (int)pieceCheck.getPosition().x; i< kingPositionBlack().x; i++) {
+                MUC.add(new PVector(pieceCheck.getPosition().x +i, pieceCheck.getPosition().y -i));
               }
             }
-            if (pieceCheck.getPosition().x > kingPositionWhite().x && pieceCheck.getPosition().y < kingPositionWhite().y) {
+            if (pieceCheck.getPosition().x > kingPositionBlack().x && pieceCheck.getPosition().y < kingPositionBlack().y) {
+              for (int i = (int)kingPositionBlack().x; i <pieceCheck.getPosition().x; i++) {
+                MUC.add(new PVector((int)kingPositionBlack().x + i, (int)kingPositionBlack().y - i));
+              }
+            }
+
+            if (pieceCheck.getPosition().x > kingPositionBlack().x && pieceCheck.getPosition().y > kingPositionBlack().y) {
+              for (int i = (int)kingPositionBlack().x; i <pieceCheck.getPosition().x; i++) {
+                MUC.add(new PVector((int)kingPositionBlack().x + i, (int)kingPositionBlack().y + i));
+              }
             }
           }
           if (pieceCheck.getClass().getName() == "Chess$Rock" || pieceCheck.getClass().getName() == "Chess$Queen") {
           }
-        }
-      } else {
-        MUC = board[(int)kingPositionBlack().x][(int)kingPositionBlack().y].possibleMovements();
-        if (pieceCheck.getClass().getName() == "Chess$Knight" || pieceCheck.getClass().getName() == "Chess$Pawn") {
-          MUC.add(pieceCheck.getPosition());
-        }
-        if (pieceCheck.getClass().getName() == "Chess$Bishop") {
-        }
-        if (pieceCheck.getClass().getName() == "Chess$Rock") {
-        }
-        if (pieceCheck.getClass().getName() == "Chess$Queen") {
         }
       }
     }
@@ -334,7 +387,6 @@ class Board {
 
   public boolean checkWhite() {
     boolean check = false;
-    pieceCheck = null;
 
     for (int i = 0; i<64; i++) {
       if (board[i/8][i%8] != null) {
@@ -345,27 +397,30 @@ class Board {
               pieceCheck = board[i/8][i%8];
             }
           } else {
-            if (kingPositionWhite().x != 7) {
-              if (board[(int)kingPositionWhite().x + 1][(int)kingPositionWhite().y - 1] == board[i/8][i%8]) {
-                check = true;
-                pieceCheck = board[i/8][i%8];
+            if (board[i/8][i%8].getTeam() != board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].getTeam()) {
+              if (kingPositionWhite().x != 7 && kingPositionWhite().y != 0) {
+                if (board[(int)kingPositionWhite().x + 1][(int)kingPositionWhite().y - 1] == board[i/8][i%8]) {
+                  check = true;
+                  pieceCheck = board[i/8][i%8];
+                }
               }
-            }
-            if (kingPositionWhite().x != 0) {
-              if ( board[(int)kingPositionWhite().x - 1][(int)kingPositionWhite().y - 1] == board[i/8][i%8]) {
-                check = true;
-                pieceCheck = board[i/8][i%8];
+              if (kingPositionWhite().x != 0 && kingPositionWhite().y != 0) {
+                if ( board[(int)kingPositionWhite().x - 1][(int)kingPositionWhite().y - 1] == board[i/8][i%8]) {
+                  check = true;
+                  pieceCheck = board[i/8][i%8];
+                }
               }
             }
           }
         }
       }
     }
-    if (board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().size() != 0) {
-      println(board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().get(0).getClass());
+    if (pieceCheck != null) {
+      println(pieceCheck.getTeam());
+    } else {
+      println("null");
     }
-    //println(pieceCheck);
-    //println("Blancas Jaque: " + check);
+    println("Blancas Jaque: " + check);
     return check;
   }
 
@@ -379,26 +434,41 @@ class Board {
             if (board[i/8][i%8].possibleMovements().indexOf(kingPositionBlack()) != -1) {
               check = true;
               pieceCheck = board[i/8][i%8];
+            } else {
+              check = false;
+              pieceCheck = null;
             }
           } else {
-            if (kingPositionBlack().x != 7) {
-              if (board[(int)kingPositionBlack().x + 1][(int)kingPositionBlack().y + 1] == board[i/8][i%8]) {
-                check = true;
-                pieceCheck = board[i/8][i%8];
+            if (board[i/8][i%8].getTeam() != board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].getTeam()) {
+              if (kingPositionBlack().x != 7) {
+                if (board[(int)kingPositionBlack().x + 1][(int)kingPositionBlack().y + 1] == board[i/8][i%8]) {
+                  check = true;
+                  pieceCheck = board[i/8][i%8];
+                } else {
+                  check = false;
+                  pieceCheck = null;
+                }
               }
-            }
-            if (kingPositionBlack().x != 0) {
-              if ( board[(int)kingPositionBlack().x - 1][(int)kingPositionBlack().y + 1] == board[i/8][i%8]) {
-                check = true;
-                pieceCheck = board[i/8][i%8];
+              if (kingPositionBlack().x != 0) {
+                if ( board[(int)kingPositionBlack().x - 1][(int)kingPositionBlack().y + 1] == board[i/8][i%8]) {
+                  check = true;
+                  pieceCheck = board[i/8][i%8];
+                } else {
+                  check = false;
+                  pieceCheck = null;
+                }
               }
             }
           }
         }
       }
     }
-    //println(pieceCheck);
-    //println("Negras Jaque: " + check);
+    if (pieceCheck != null) {
+      println(pieceCheck.getTeam());
+    } else {
+      println("null");
+    }
+    println("Negras Jaque: " + check);
     return check;
   }
 
@@ -417,9 +487,6 @@ class Board {
             translate(width/2-size*4, (height/2-size*4));
             fill(255, (c*10)%255, 0);
             rect((i/8)*size, (i%8)*size, size, size);
-            fill(0);
-            //textSize(50);
-            //text(c, (i)/8*size, (i)%8*size);
             popMatrix();
           }
         }
@@ -452,7 +519,7 @@ class Board {
     if (pieceSelection().x < 8 && pieceSelection().y < 8) {
       move();
       eat();
-      //  deselect();
+      deselect();
     }
     if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {
       onlySelection();

@@ -22,7 +22,7 @@ class Bishop extends Piece {
       }
     }
 
-    while (downRight < 7-this.position.y && downRight < 7-this.position.x && board.board[(int)this.position.x+downRight][(int)this.position.y+downRight] ==null ) {
+    while (downRight < 7-this.position.y && downRight < 7-this.position.x && board.board[(int)this.position.x+downRight][(int)this.position.y+downRight] ==null) {
       downRight++;
     }   
     for (int i = downRight+1; i<8; i++) {
@@ -31,7 +31,7 @@ class Bishop extends Piece {
         PM.remove(indice);
       }
     }
-    while (upRight <= this.position.y && upRight < 7-this.position.x && board.board[(int)this.position.x+upRight][(int)this.position.y-upRight] ==null ) {
+    while (upRight <= this.position.y && upRight < 7-this.position.x && board.board[(int)this.position.x+upRight][(int)this.position.y-upRight] ==null) {
       upRight++;
     }   
     for (int i = upRight+1; i<8; i++) {
@@ -40,7 +40,7 @@ class Bishop extends Piece {
         PM.remove(indice);
       }
     }
-    while (upLeft < this.position.y && upLeft <= this.position.x && upLeft > 0 && board.board[(int)this.position.x-upLeft][(int)this.position.y-upLeft] ==null ) {
+    while (upLeft < this.position.y && upLeft <= this.position.x && upLeft > 0 && board.board[(int)this.position.x-upLeft][(int)this.position.y-upLeft] ==null) {
       upLeft++;
     }   
     for (int i = upLeft+1; i<8; i++) {
@@ -49,7 +49,7 @@ class Bishop extends Piece {
         PM.remove(indice);
       }
     }
-    while (downLeft < 7-this.position.y && downLeft <= this.position.x && downLeft > 0 && board.board[(int)this.position.x-downLeft][(int)this.position.y+downLeft] ==null ) {
+    while (downLeft < 7-this.position.y && downLeft <= this.position.x && downLeft > 0 && board.board[(int)this.position.x-downLeft][(int)this.position.y+downLeft] ==null) {
       downLeft++;
     }   
     for (int i = downLeft+1; i<8; i++) {
@@ -59,18 +59,14 @@ class Bishop extends Piece {
       }
     }
     if (this.selection) {
-      boolean algo = false;
-      for (int i = 0; i < board.movementsUnderCheck().size() && i<PM.size(); i++) {
-        if (PM.indexOf(board.movementsUnderCheck().get(i)) != -1) {  
-          PVector mierda = PM.remove(PM.indexOf(board.movementsUnderCheck().get(i)));
-          PM = new ArrayList<PVector>();
-          PM.add(mierda);
-          algo = true;
+      for (int i = 0; i< 64; i++) {
+        if (board.movementsUnderCheck().size() != 0) {
+          if ((board.movementsUnderCheck().indexOf(new PVector(i/8, i%8)) == -1)) {
+            if (PM.indexOf(new PVector(i/8, i%8)) != -1) {
+              PM.remove(PM.indexOf(new PVector(i/8, i%8)));
+            }
+          }
         }
-      }
-      
-      if (!algo && board.pieceCheck != null) {
-        PM = new ArrayList<PVector>();
       }
     }
 

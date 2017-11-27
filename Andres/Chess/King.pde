@@ -46,17 +46,52 @@ class King extends Piece {
           if (PM.indexOf(board.MovementsWhite().get(i)) != -1) {     
             PM.remove(PM.indexOf(board.MovementsWhite().get(i)));
           }
+          if (board.pieceCheck != null) {
+            if (board.pieceCheck.getTeam() != this.team) {
+              if (board.pieceCheck.getClass().getName() == "Chess$Bishop" || board.pieceCheck.getClass().getName() == "Chess$Queen") {
+                if ((abs(board.pieceCheck.getPosition().x - i/8)==abs(board.pieceCheck.getPosition().y -i%8))&&(board.pieceCheck.getPosition().x != i/8 || board.pieceCheck.getPosition().y != i%8)) {
+                  if (PM.indexOf(new PVector(i/8, i%8)) != -1) {
+                    PM.remove(PM.indexOf(new PVector(i/8, i%8)));
+                  }
+                }
+              }
+            }
+          }
         }
       }
-
+    }
+    if (this.selection) {
       if (!this.team) {
         for (int i = 0; i < board.MovementsBlack().size(); i++) {
           if (PM.indexOf(board.MovementsBlack().get(i)) != -1) {     
             PM.remove(PM.indexOf(board.MovementsBlack().get(i)));
           }
+          if (board.pieceCheck != null) {
+            if (board.pieceCheck.getTeam() != this.team) {
+              if (board.pieceCheck.getClass().getName() == "Chess$Bishop" || board.pieceCheck.getClass().getName() == "Chess$Queen") {
+                if ((abs(board.pieceCheck.getPosition().x - i/8)==abs(board.pieceCheck.getPosition().y - i%8))&&(board.pieceCheck.getPosition().x != i/8 || board.pieceCheck.getPosition().y != i%8)) {
+                  if (PM.indexOf(new PVector(i/8, i%8)) != -1) {
+                    PM.remove(PM.indexOf(new PVector(i/8, i%8)));
+                  }
+                }
+
+                if ((abs(board.pieceCheck.getPosition().x - i/8)==abs(board.pieceCheck.getPosition().y + i%8))&&(board.pieceCheck.getPosition().x != i/8 || board.pieceCheck.getPosition().y != i%8)) {
+                  if (PM.indexOf(new PVector(-i/8, i%8)) != -1) {
+                    PM.remove(PM.indexOf(new PVector(-i/8, i%8)));
+                  }
+                }
+                if ((abs(board.pieceCheck.getPosition().x - i/8)==abs(board.pieceCheck.getPosition().y -i%8))&&(board.pieceCheck.getPosition().x != i/8 || board.pieceCheck.getPosition().y != i%8)) {
+                  if (PM.indexOf(new PVector(i/8, -i%8)) != -1) {
+                    PM.remove(PM.indexOf(new PVector(i/8, -i%8)));
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
+
 
     return PM;
   }
