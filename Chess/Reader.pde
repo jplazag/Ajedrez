@@ -5,7 +5,8 @@ class Reader {
   int numPlay;
   ArrayList<String> plays = new ArrayList<String>();
   ArrayList<String> playsFEN = new ArrayList<String>();
-  //int index = 0, n = 0;
+  String[] lines;
+  StringBuffer cadena = new StringBuffer();
 
 
   public Reader() {
@@ -20,7 +21,7 @@ class Reader {
   }
   public String readFiles() {
     String s = new String();
-    for (int x=10; x<input.length; x++) {
+    for (int x=10; x < input.length; x++) {
       s += input[x];
       s += " ";
     }
@@ -28,15 +29,18 @@ class Reader {
     s+="<";
     return s.toString();
   }
+  public String readFilesFEN(String[] playFEN, int a) {
+    lines = playFEN;
+    cadena.append(lines[a]);
+    return cadena.toString();
+  }
 
   public void lector() {
     int index = 0;
     while (readFiles().charAt(index++) != '<') {
 
-      //println("66" + " " + readFiles().charAt(index));
       if (readFiles().charAt(index) == ' ' || (readFiles().charAt(index) == '.' && readFiles().charAt(index + 1) != ' ' )) {
         do {
-          //println("11" + " " + readFiles().charAt(index));
           index++;
           if (readFiles().charAt(index) != ' ' && readFiles().charAt(index) != '+' && readFiles().charAt(index) != '#')
             rec += readFiles().charAt(index);
@@ -46,30 +50,21 @@ class Reader {
         index++;
         if (Character.isDigit(readFiles().charAt(index)) ) {
           do {
-            //println("22" + " " + readFiles().charAt(index));
             index++;
-            //println("33" + " " + readFiles().charAt(index));
-            //println("33.5" + " " + readFiles().charAt(index));
           } while (Character.isDigit(readFiles().charAt(index)));
           if (readFiles().charAt(index) == '.')
             index--;
         } else {
-          //println("oooooo" + " " + readFiles().charAt(index));
           index -= 2;
-          //println("55" + " " + readFiles().charAt(index));
         }
       } 
       if ( readFiles().charAt(index) == '<') break;
     }
-    //for (int x = 0; x <plays.size(); x++) {
-    //  println(x + " " + plays.get(x));
-    //}
   }
 
   public void reproductor(int c) {
-    //Piece object = new Piece();
-
-    //Aqui se debe conectar con un boton que aumente el contador c
+    if (c == 0)
+      playsFEN.add(board.turnIntoFEN(c));
 
     String play = plays.get(c%plays.size());
     if (c%2==0) {
@@ -269,6 +264,13 @@ class Reader {
       }
     }
     playsFEN.add(board.turnIntoFEN(c));
+  }
+
+  public void reproductorFEN(Board object, String match) {
+    //if (a < match.size() && a >= 0)
+    object.setFEN(match);
+    object.reset();
+    object.importFEN();
   }
 
   public int conversor(String p, int index) {
