@@ -5,7 +5,8 @@ class Reader {
   int numPlay;
   ArrayList<String> plays = new ArrayList<String>();
   ArrayList<String> playsFEN = new ArrayList<String>();
-  //int index = 0, n = 0;
+  String[] lines;
+  StringBuffer cadena = new StringBuffer();
 
 
   public Reader() {
@@ -18,8 +19,10 @@ class Reader {
   public ArrayList<String> getPlays() {
     return plays;
   }
+
   public String readFiles() {
     String s = new String();
+    s = "";
     for (int x=10; x<input.length; x++) {
       s += input[x];
       s += " ";
@@ -28,15 +31,18 @@ class Reader {
     s+="<";
     return s.toString();
   }
-
+  public String readFilesFEN(String[] playFEN, int a) {
+    lines = playFEN;
+    cadena.append(lines[a]);
+    return cadena.toString();
+  }
   public void lector() {
     int index = 0;
+    plays.clear();                                                           //ACAAAAAAAAAAAAAAAAAAAAA
     while (readFiles().charAt(index++) != '<') {
 
-      //println("66" + " " + readFiles().charAt(index));
       if (readFiles().charAt(index) == ' ' || (readFiles().charAt(index) == '.' && readFiles().charAt(index + 1) != ' ' )) {
         do {
-          //println("11" + " " + readFiles().charAt(index));
           index++;
           if (readFiles().charAt(index) != ' ' && readFiles().charAt(index) != '+' && readFiles().charAt(index) != '#')
             rec += readFiles().charAt(index);
@@ -46,31 +52,23 @@ class Reader {
         index++;
         if (Character.isDigit(readFiles().charAt(index)) ) {
           do {
-            //println("22" + " " + readFiles().charAt(index));
             index++;
-            //println("33" + " " + readFiles().charAt(index));
-            //println("33.5" + " " + readFiles().charAt(index));
           } while (Character.isDigit(readFiles().charAt(index)));
           if (readFiles().charAt(index) == '.')
             index--;
         } else {
-          //println("oooooo" + " " + readFiles().charAt(index));
           index -= 2;
-          //println("55" + " " + readFiles().charAt(index));
         }
       } 
       if ( readFiles().charAt(index) == '<') break;
     }
-    //for (int x = 0; x <plays.size(); x++) {
-    //  println(x + " " + plays.get(x));
-    //}
   }
 
   public void reproductor(int c) {
-    //Piece object = new Piece();
 
-    //Aqui se debe conectar con un boton que aumente el contador c
-
+    if (c == 0) {
+      playsFEN.add(board.turnIntoFEN(c));
+    }
     String play = plays.get(c%plays.size());
     if (c%2==0) {
       switch(play.length()) {
@@ -90,7 +88,7 @@ class Reader {
 
       case 3: 
         if (play.charAt(0) == 'O') {
-          println("holi");
+          //println("holi");
           PVector ki1 = new PVector(6, 7);
           PVector To1 = new PVector(5, 7);          
           board.board[4][7] = null;
@@ -119,7 +117,6 @@ class Reader {
         int n1 = 7 - ((int) (play.charAt(1) - 48)-1);
 
         if (play.charAt(1) == 'x') {  
-          //board.board[(int)fin3b.x][(int)fin3b.y] = null;  
           for (int x = 0; x < 64; x++) {
             if (board.board[x/8][x%8]!=null) {
               if (board.board[x/8][x%8].getClass().getName() == identificador(play, 0) && (board.board[x/8][x%8].possibleMovements().indexOf(fin3b) != -1) && board.board[x/8][x%8].getTeam() == false) {
@@ -129,14 +126,14 @@ class Reader {
             }
           }
         } else if (conversor(play, 1) != -1) {
-          println("si " + conversor(play, 1));
-          println("2 " + fin3b);
+          //println("si " + conversor(play, 1));
+          //println("2 " + fin3b);
 
           for (int i = 0; i < 8; i++) {
             if (board.board[conversor(play, 1)][i] !=null) {
-              println("i " + i);
+              //println("i " + i);
               if (board.board[conversor(play, 1)][i].getClass().getName() == identificador(play, 0) && (board.board[conversor(play, 1)][i].possibleMovements().indexOf(fin3b) != -1) && board.board[conversor(play, 1)][i].getTeam() == false) {
-                println("i " + i);
+                //println("i " + i);
                 board.board[conversor(play, 1)][i] = null;
                 board.board[(int)fin3b.x][(int)fin3b.y] = nueva_pieza(play, 0, fin3b, false);
               }
@@ -154,7 +151,7 @@ class Reader {
         }
       case 5:
         if (play.charAt(0) == 'O') {
-          println("holi");
+          //println("holi");
           PVector ki3 = new PVector(2, 7);
           PVector To3 = new PVector(3, 7);          
           board.board[4][7] = null;
@@ -166,7 +163,7 @@ class Reader {
       }
     }
 
-    //    *********************************************************************
+    //    *******************************************************************
     if (c%2 == 1) {
       switch(play.length()) {
       case 2: //Pawn
@@ -174,15 +171,6 @@ class Reader {
         finn.x = conversor(play, 0);
         finn.y = 7-(((int) (play.charAt(1) - 48)) - 1);
 
-        //n  = i;
-        //for (int x=j; x >= 0; x--  ) { 
-        //  if (board.board[i][x] != null) {
-        //    if (board.board[i][x].getClass().getName() == "Chess$Pawn") {
-        //      board.board[i][x] = null;
-        //      board.board[(int)finn.x][(int)finn.y] = new Pawn(finn, true, loadImage("PeonN.png"));
-        //    }
-        //  }
-        //}
         for (int x = 0; x < 64; x++) {
           if (board.board[x/8][x%8]!=null) {
             if (board.board[x/8][x%8].getClass().getName() == identificador(play, 0) && (board.board[x/8][x%8].possibleMovements().indexOf(finn) != -1) && board.board[x/8][x%8].getTeam() == true) {
@@ -233,12 +221,12 @@ class Reader {
             }
           }
         } else if (conversor(play, 1) != -1) {
-          println("si " + conversor(play, 1));
+          //println("si " + conversor(play, 1));
           for (int i = 0; i < 8; i++) {
 
             if (board.board[conversor(play, 1)][i] != null) {
 
-              println("i " + i + board.board[conversor(play, 1)][i].getClass().getName() + board.board[conversor(play, 1)][i].getTeam());
+              //println("i " + i + board.board[conversor(play, 1)][i].getClass().getName() + board.board[conversor(play, 1)][i].getTeam());
               if (board.board[conversor(play, 1)][i].getClass().getName() == identificador(play, 0) && (board.board[conversor(play, 1)][i].possibleMovements().indexOf(fin3n) != -1) && board.board[conversor(play, 1)][i].getTeam() == true) {
                 board.board[conversor(play, 1)][i] = null;
                 board.board[(int)fin3n.x][(int)fin3n.y] = nueva_pieza(play, 0, fin3n, true);
@@ -269,6 +257,13 @@ class Reader {
       }
     }
     playsFEN.add(board.turnIntoFEN(c));
+  }
+
+  public void reproductorFEN(Board object, String match) {
+    //if (a < match.size() && a >= 0)
+    object.setFEN(match);
+    object.reset();
+    object.importFEN();
   }
 
   public int conversor(String p, int index) {
