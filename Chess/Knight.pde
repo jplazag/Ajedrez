@@ -17,7 +17,7 @@ class Knight extends Piece {
         }
       }
     }
-    
+
     return PM;
   }
 }

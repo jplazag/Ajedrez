@@ -68,7 +68,7 @@ class Bishop extends Piece {
           algo = true;
         }
       }
-      
+
       if (!algo && board.pieceCheck != null) {
         PM = new ArrayList<PVector>();
       }

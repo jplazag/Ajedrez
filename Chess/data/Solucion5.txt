@@ -1,0 +1,12 @@
+
+[Event "?"]
+[Site "Londres"]
+[Date "1851.??.??"]
+[Round "?"]
+[White "Anderssen, Adolf"]
+[Black "Kieseritzky, Lionel"]
+[Result "1-0"]
+[PlyCount "45"]
+[EventDate "1851.??.??"]
+
+1. Qf7+ Rxf7 2. exf7+ Kh8 3. Re8+ Bf8 4. Bf6# 1-0

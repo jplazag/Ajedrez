@@ -1,4 +1,4 @@
- class Queen extends Piece {
+class Queen extends Piece {
 
   public Queen(PVector p, boolean t, PImage i) {
     super(p, t, i);
