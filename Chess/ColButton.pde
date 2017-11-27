@@ -64,43 +64,45 @@ public class ColButton extends Button {
     textSize(txtscl*20);
     text(this.buttonTxt, this.translation.x, this.translation.y);
   }
+}/*
   public void borrar() {
-    if (this.pressed) {
-      board.reset();
-      board.importFEN();
-    }
-  }
-  public void borrar1() {
-    if (this.pressed) {
-      board.reset();
-      board.setFEN(posicion_inicial());
-      board.importFEN();
-    }
-  }
-  public void espacio(String l) {
-    if (this.pressed) {
-      lee.setInput(loadStrings(l));
-      lee.lector();
-      for (int x = 0; x <lee.plays.size(); x++) {
-        println(x + " " + lee.plays.get(x));
-      }
-      if (c < lee.plays.size()) {
-        for (int x = 0; x < lee.plays.size(); x++) {
-          lee.reproductor(x);
-        }
-        board.reset();
-        board.importFEN();
-        //println(lee.plays.get(c));
-        for (int x = 0; x <lee.playsFEN.size(); x++) {
-          println(x + " " + lee.playsFEN.get(x));
-        }
-      }
-      c++;
-      key = 0;
-      // println("Negras Jaque: " + board.checkWhite());
-      //println("Negras Jaque: " + board.checkBlack());
-      println(c);
-      print("\n");
-    }
-  }
-}
+ if (this.pressed) {
+ board.reset();
+ board.importFEN();
+ }
+ }
+ public void borrar1() {
+ if (this.pressed) {
+ board.setFEN(posicion_inicial());
+ board.reset();
+ board.importFEN();
+ }
+ }*/
+/*public void adelante() {
+ if (this.pressed) {
+ if ( a<lee.playsFEN.size()-1) {
+ a++;
+ if (0<=a && a < lee.playsFEN.size())
+ board.setFEN(lee.playsFEN.get(a));
+ board.reset();
+ board.importFEN();
+ board.turnIntoFEN(a);
+ 
+ key = 0;
+ }
+ }
+ }
+ public void atras() {
+ if (this.pressed) {
+ if (keyPressed && key == 'x'&& a>0) {
+ a--;
+ if ( 0<=a && a < lee.playsFEN.size())
+ board.setFEN(lee.playsFEN.get(a));
+ board.reset();
+ board.importFEN();
+ //turnIntoFEN(false, a);
+ 
+ key = 0;
+ }
+ }
+ }*/
