@@ -1,4 +1,3 @@
-8/P7/8/K7/8/k7/8/8 w - 0 1
 rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
 r2r3k/ppq3pp/2p1n3/4NQ2/3P4/1B6/PP3PPP/6K1 w - - 0 1
 r1b3kn/1pqr2p1/2p1p2p/p3P2N/1n1N1P2/3Q2RP/PP4P1/3B1R1K w - - 0 0
