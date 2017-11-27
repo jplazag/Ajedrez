@@ -1,12 +1,12 @@
 class Board {
   Piece[][] board = new Piece[8][8];
-  int size;
+  int size, numJugada;
   Piece pieceCheck;
-  int turn = 1;
+  boolean turn = true;
   String fenString;
   boolean verify = false;
   ArrayList<String> matchPlayed = new ArrayList<String>();
-  
+
   Board (String a, int s) {
     fenString = a;
     size = s;
@@ -114,10 +114,10 @@ class Board {
     }
     switch(fenString.charAt(++charIndex)) {
     case 'w':
-      turn = 1;
+      turn = true;
       break;
     case 'a':
-      turn = 2;
+      turn = false;
       break;
     }
   }
@@ -182,22 +182,22 @@ class Board {
         memoria += (char)(contCol + 48);
       if (j < 7)
         memoria += "/";
-      if (j == 7){
+      if (j == 7) {
         memoria += " ";
-      if (turno % 2 == 0) {
-        memoria += "a";
-      } else if (turno % 2 == 1) {
-        memoria += "w";
-      }
+        if (turno % 2 == 0) {
+          memoria += "a";
+        } else if (turno % 2 == 1) {
+          memoria += "w";
+        }
       }
       contCol = 0;
     }
-    
+
     return memoria;
   }
 
 
-   public void display () {
+  public void display () {
 
     for (int i = 0; i < 64; i ++) {
       if (board[i/8][i%8] != null) {
@@ -223,7 +223,7 @@ class Board {
     }
   }
 
- public void cast() {
+  public void cast() {
     if (board[6][7] != null) {
       if (board[6][7].getClass().getName() == "Chess$King" && board[6][7].getFirst()) {
         board[5][7] = board[7][7];
@@ -263,7 +263,7 @@ class Board {
   }
 
   public void turnManager() {
-    if (turn % 2 != 0) {
+    if (turn) {
       if (!board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) {
         board[(int)mousePosition().x][(int)mousePosition().y].setSelection(true);
       }
@@ -275,18 +275,23 @@ class Board {
   }
 
   public void move() {
+    if (numJugada == 0) {
+      matchPlayed.add(turnIntoFEN(numJugada));
+    }
     if ((board[(int)mousePosition().x][(int)mousePosition().y] == null) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
       board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
       board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
       board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
       verify = true;
-      turn += 1;
-      matchPlayed.add(turnIntoFEN(turn-1));
+      turn = !turn;
+      numJugada++;
+      matchPlayed.add(turnIntoFEN(numJugada));
+      save(matchPlayed);
       cast();
       if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" || board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$Rock") {
         board[(int)pieceSelection().x][(int)pieceSelection().y].setFirst(false);
       }
-    }    
+    }
   }
 
   public void eat() {
@@ -297,12 +302,13 @@ class Board {
           board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
           board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
           verify = true;
-          turn += 1;
-          matchPlayed.add(turnIntoFEN(turn-1));
+          turn = !turn;
+          matchPlayed.add(turnIntoFEN(numJugada));
+          save(matchPlayed);
         }
       }
-      deselect();      
-    }    
+      deselect();
+    }
   }
   public PVector mousePosition() {
     PVector p = new PVector(0, 0);
@@ -312,7 +318,7 @@ class Board {
         p.y=i%8;
       }
     }
-    println(p);
+    //println(p);
     return p;
   }
 
@@ -453,11 +459,11 @@ class Board {
         }
       }
     }
-    if (board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().size() != 0) {
-      println(board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().get(0).getClass());
-    }
-    //println(pieceCheck);
-    //println("Blancas Jaque: " + check);
+    /*if (board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().size() != 0) {
+     //println(board[(int)kingPositionWhite().x][(int)kingPositionWhite().y].possibleMovements().get(0).getClass());
+     }*/
+    ////println(pieceCheck);
+    ////println("Blancas Jaque: " + check);
     return check;
   }
 
@@ -489,8 +495,8 @@ class Board {
         }
       }
     }
-    //println(pieceCheck);
-    //println("Negras Jaque: " + check);
+    ////println(pieceCheck);
+    ////println("Negras Jaque: " + check);
     return check;
   }
 
@@ -523,7 +529,7 @@ class Board {
     PVector p = new PVector(8, 8);
     for (int i = 0; i<64; i++) {
       if (board[i/8][i%8] != null) {
-        if (board[i/8][i%8].getSelection() == true) {
+        if (board[i/8][i%8].getSelection()) {
           p = new PVector(board[i/8][i%8].getPosition().x, board[i/8][i%8].getPosition().y);
           pushMatrix();
           translate(width/2-size*4, (height/2-size*4));
