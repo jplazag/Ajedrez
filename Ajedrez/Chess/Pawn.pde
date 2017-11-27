@@ -14,7 +14,7 @@ class Pawn extends Piece {
           }
         }
       }
-      if (this.position.x != 0) {
+      if (this.position.x != 0 && this.position.y != 7) {
         if (board.board[(int)this.position.x -1][(int)this.position.y+1] != null) {
           if (team != board.board[(int)this.position.x -1][(int)this.position.y+1].getTeam()) {
             PM.add(new PVector(this.position.x-1, this.position.y +1));
@@ -29,9 +29,10 @@ class Pawn extends Piece {
           }
         }
       } else {
+        if(this.position.y != 7){
         if (board.board[(int)this.position.x][(int)this.position.y + 1] == null) {
           PM.add(new PVector(this.position.x, this.position.y + 1));
-        }
+        }}
       }
     } else {
       if (this.position.x != 7 && this.position.y != 0) {
@@ -41,7 +42,7 @@ class Pawn extends Piece {
           }
         }
       }
-      if (this.position.x != 0) {
+      if (this.position.x != 0 && this.position.y != 0) {
         if (board.board[(int)this.position.x -1][(int)this.position.y-1] != null) {
           if (team != board.board[(int)this.position.x -1][(int)this.position.y-1].getTeam()) {
             PM.add(new PVector(this.position.x-1, this.position.y -1));

@@ -14,6 +14,7 @@ ArrayList<PVector> posible;
 String b;
 int  inicio=0, lecFEN = -1, solAc=0;
 Reader aperturas = new Reader();
+
 Board board;
 //Board elegido;
 boolean selection = false, prom;
@@ -142,7 +143,7 @@ public void setupBotones() {
   flechita[1]= new ImButton (botonesfPos[1], rigthArrow, 1, 2);
   butGB= new ColButton (botonGBPos, colorGeneral, color(0), "Menú principal", 70, 200, 0, 1f, 0);
   butGBP= new ColButton (botonGBAPos, colorGeneral, color(0), "Aperturas", 70, 200, 3, 1f, 0);
-  butGBA= new ColButton (botonGBAPos, colorGeneral, color(0), "Acertijos", 70, 200, 4, 1f, 0);
+  butGBA= new ColButton (botonGBAPos, colorGeneral, color(0), "Acertijos", 70, 200, 4, 1f, 5);
   butSolAc=new ColButton (botonesSolAcPos, colorGeneral, color(0), "solución", 60, 180, 1, 1f, 3);
 }
 
@@ -284,6 +285,7 @@ void mouseClicked() {
 void draw() {
   println(promo);
   background(250);
+  
   /*pushStyle();
   pushMatrix();
   background(250);
@@ -297,7 +299,7 @@ void draw() {
 
   textFont(loadFont("OCRAExtended-48.vlw"));
   println(conAcertijo);
-  println(butMA[2].pressed, solAc);
+  println(promo);
   switch(nivel) {
   case 0:
     for (int i=0; i<butMP.length; i++) {
@@ -425,6 +427,7 @@ void draw() {
       pushStyle();
       pushMatrix();
       scale(0.45);
+      videoRey.volume(0);
       videoRey.speed(4.0);
       videoRey.loop();
       image(videoRey, 14.5*width/20*(20/9), 7.25*height/20*(20/9));
@@ -588,7 +591,6 @@ void draw() {
         break;
       case 8:
         aperturas.setInput(loadStrings("Partida2.pgn"));
-
         aperturas.lector();
         break;
       }

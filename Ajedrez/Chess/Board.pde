@@ -308,24 +308,48 @@ class Board {
       if (board[i][7] != null) {
         if (board[i][7].getClass().getName() == "Chess$Pawn") {
           posPromotion = new PVector(i, 7);
-          prom = true;
+            prom = true;
         }
       }
-      /*if (promo == 1) {
-        board[(int)posPromotion.x][(int)posPromotion.y] = new Queen(new PVector((int)posPromotion.x, (int)posPromotion.y), false, i[8]);
+      if (posPromotion != null) {
+        
+        if (!board[(int)posPromotion.x][(int)posPromotion.y].getTeam()) {
+          if (promo == 1) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Queen(new PVector((int)posPromotion.x, (int)posPromotion.y), false, loadImage("ReinaB.png"));
+            promo=0;
+          }
+          if (promo == 2) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Knight(new PVector((int)posPromotion.x, (int)posPromotion.y), false, loadImage("CaballoB.png"));
+            promo=0;
+          }
+          if (promo == 3) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Bishop(new PVector((int)posPromotion.x, (int)posPromotion.y), false, loadImage("AlfilB.png"));
+            promo=0;
+          }
+          if (promo == 4) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Rock(new PVector((int)posPromotion.x, (int)posPromotion.y), false, loadImage("TorreB.png"));
+            promo=0;
+          }
+        } else if (board[(int)posPromotion.x][(int)posPromotion.y].getTeam()) {
+          if (promo == 1) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Queen(new PVector((int)posPromotion.x, (int)posPromotion.y), true, loadImage("ReinaN.png"));
+            promo=0;
+          }
+          if (promo == 2) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Knight(new PVector((int)posPromotion.x, (int)posPromotion.y), true, loadImage("CaballoN.png"));
+            promo=0;
+          }
+          if (promo == 3) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Bishop(new PVector((int)posPromotion.x, (int)posPromotion.y), true, loadImage("AlfilN.png"));
+            promo=0;
+          }
+          if (promo == 4) {
+            board[(int)posPromotion.x][(int)posPromotion.y] = new Rock(new PVector((int)posPromotion.x, (int)posPromotion.y), true, loadImage("TorreN.png"));
+            promo=0;
+          }
+        }
       }
-      if (promo == 2) {
-        board[(int)posPromotion.x][(int)posPromotion.y] = new Knight(new PVector((int)posPromotion.x, (int)posPromotion.y), false, i[4]);
-      }
-      if (promo == 3) {
-        board[(int)posPromotion.x][(int)posPromotion.y] = new Bishop(new PVector((int)posPromotion.x, (int)posPromotion.y), false, i[2]);
-      }
-      if (promo == 4) {
-        board[(int)posPromotion.x][(int)posPromotion.y] = new Rock(new PVector((int)posPromotion.x, (int)posPromotion.y), false, i[6]);
-      }*/
     }
-
-
     return posPromotion;
   }
 

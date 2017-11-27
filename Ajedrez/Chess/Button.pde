@@ -102,7 +102,7 @@ abstract class Button {
       if (lvl==3) {
         solAc=this.value;
       }
-      if(lvl==4){
+      if (lvl==4) {
         nivel=this.value;
         conAcertijo=this.value;
         board.setFEN(posicion_inicial(conAcertijo-40));
@@ -110,23 +110,24 @@ abstract class Button {
         board.importFEN();
         println(conAcertijo);
         println(posicion_inicial(conAcertijo-40));
-        for (int i = 0; i < 64; i++){
-         if (board.board[i/8][i%8] != null){
-           board.board[i/8][i%8].setFirst(false);
-         }
-       }
+        for (int i = 0; i < 64; i++) {
+          if (board.board[i/8][i%8] != null) {
+            board.board[i/8][i%8].setFirst(false);
+          }
+        }
       }
-      if(lvl==5){
+      if (lvl==5) {
         nivel=this.value;
-        solAc=0;  lecFEN=-1;
+        solAc=0;  
+        lecFEN=-1;
         aperturas.playsFEN.clear();
         board.setFEN(posicion_inicial(conAcertijo-40));
         board.reset();
         board.importFEN();
       }
-      if(lvl==6){
+      if (lvl==6) {
         promo=this.value;
-        println("hola");
+        prom=false;
       }
       pressed=false;
     }
