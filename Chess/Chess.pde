@@ -269,6 +269,15 @@ void draw() {
     for (int i=0; i<butMN.length; i++) {
       butMN[i].cambio();
       butMN[i].draw();
+      butMN[0].espacio("budapest.pgn");
+      butMN[1].espacio("italiana.pgn");
+      butMN[2].espacio("siciliana.pgn");
+      butMN[3].espacio("defindia.pgn");
+      butMN[4].espacio("gambito.pgn");
+      butMN[5].espacio("atorre.pgn");
+      butMN[6].espacio("catalana.pgn");
+      butMN[7].espacio("caballos.pgn");
+      butMN[8].espacio("Anderssen-Kieseritzky.pgn");
       butGB.cambio();
       butGB.draw();
     }
@@ -387,10 +396,8 @@ void draw() {
     if (nivel==i) {
       flechita[0].cambio();
       flechita[0].draw();
-   //   flechita[0].atras();
       flechita[1].cambio();
       flechita[1].draw();
-     // flechita[1].adelante();
       butGBP.cambio();
       butGBP.draw();
       butGBP.borrar1();
@@ -403,26 +410,15 @@ void draw() {
         key = 0;
         println(cambioPartida);
       }
-
-      switch(cambioPartida%2) {
-      case 0:
-        partida = "Anderssen-Kieseritzky.pgn";
-        break;
-      case 1:
-        partida = "Partida2.pgn";
-        break;
-      }
       if (keyPressed && key == ' ') {
+        board.reset();
+       // board.setFEN(posicion_inicial());
+        //board.importFEN();
         lee.setInput(loadStrings(partida));
         lee.lector();
         for (int x = 0; x <lee.plays.size(); x++) {
           println(x + " " + lee.plays.get(x));
         }
-        key = 0;
-      }
-
-
-      if (keyPressed && key == 'd') {
         if (c < lee.plays.size()) {
           for (int x = 0; x < lee.plays.size(); x++) {
             lee.reproductor(x);
@@ -493,15 +489,15 @@ void draw() {
         partida = "Partida2.pgn";
         break;
       }
-      /*   if (keyPressed && key == ' ') {
-       lee.setInput(loadStrings(partida));
-       lee.lector();
-       for (int x = 0; x <lee.plays.size(); x++) {
-       println(x + " " + lee.plays.get(x));
-       }
-       key = 0;
-       }
-       */
+      if (keyPressed && key == ' ') {
+        lee.setInput(loadStrings(partida));
+        lee.lector();
+        for (int x = 0; x <lee.plays.size(); x++) {
+          println(x + " " + lee.plays.get(x));
+        }
+        key = 0;
+      }
+
 
       if (keyPressed && key == 'd') {
         if (c < lee.plays.size()) {
