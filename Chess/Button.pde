@@ -68,7 +68,7 @@ abstract class Button {
     if (this.pressed==true) {
       if (lvl==0) {
         for (int j=1; j<4; j++) {
-          if (nivel==(20+j)) {
+          if (this.value==(20+j)) {
             instrucciones=(j*11);
           }
         }
@@ -78,18 +78,54 @@ abstract class Button {
         instrucciones+=this.value;
       }
       if (lvl==2) {
-          if (a<lee.playsFEN.size()-1) {
-            a+= this.value;
-            if (0<=a && a < lee.playsFEN.size()) {
-              board.setFEN(lee.playsFEN.get(a));
-              board.reset();
-              board.importFEN();
-              board.turnIntoFEN(a);
+        if (inicio < aperturas.plays.size()) {
 
-              key = 0;
-            }
+          for (int x = 0; x < aperturas.plays.size(); x++) {
+            aperturas.reproductor(x);
+          }
+          board.reset();
+          board.importFEN();
+        }
+        //aperturas.setInput(loadStrings(partida));
+        aperturas.lector();
+
+        if (lecFEN<aperturas.playsFEN.size()-1) {
+          lecFEN+=this.value;
+          if (0<=lecFEN && lecFEN < aperturas.playsFEN.size()) {
+            board.setFEN(aperturas.playsFEN.get(lecFEN));
+            board.reset();
+            board.importFEN();
+            board.turnIntoFEN(lecFEN);
           }
         }
+      }
+      if (lvl==3) {
+        solAc=this.value;
+      }
+      if(lvl==4){
+        nivel=this.value;
+        conAcertijo=this.value;
+        board.setFEN(posicion_inicial(conAcertijo-40));
+        board.reset();
+        board.importFEN();
+        println(conAcertijo);
+        println(posicion_inicial(conAcertijo-40));
+        for (int i = 0; i < 64; i++){
+         if (board.board[i/8][i%8] != null){
+           board.board[i/8][i%8].setFirst(false);
+         }
+       }
+      }
+      if(lvl==5){
+        nivel=this.value;
+        solAc=0;  lecFEN=-1;
+        aperturas.playsFEN.clear();
+        board.setFEN(posicion_inicial(conAcertijo-40));
+        board.reset();
+        board.importFEN();
+       
+       
+      }
       pressed=false;
     }
   }

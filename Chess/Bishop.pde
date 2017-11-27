@@ -58,6 +58,22 @@ class Bishop extends Piece {
         PM.remove(indice);
       }
     }
+    if (this.selection) {
+      boolean algo = false;
+      for (int i = 0; i < board.movementsUnderCheck().size() && i<PM.size(); i++) {
+        if (PM.indexOf(board.movementsUnderCheck().get(i)) != -1) {  
+          PVector mierda = PM.remove(PM.indexOf(board.movementsUnderCheck().get(i)));
+          PM = new ArrayList<PVector>();
+          PM.add(mierda);
+          algo = true;
+        }
+      }
+
+      if (!algo && board.pieceCheck != null) {
+        PM = new ArrayList<PVector>();
+      }
+    }
+
     return PM;
   }
 }
