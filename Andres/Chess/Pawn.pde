@@ -61,6 +61,8 @@ class Pawn extends Piece {
         }
       }
     }
+    
+    //if(){}
 
     if (this.selection) {
       for (int i = 0; i< 64; i++) {

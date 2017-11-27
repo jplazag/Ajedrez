@@ -66,7 +66,7 @@ void draw() {
   //if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
   //  board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.MovementsWhite(), !board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getTeam());
   //}
-  //println(board.movementsUnderCheck());
+  board.movementsUnderCheck();
   if (board.board[(int)board.mousePosition().x][(int)board.mousePosition().y] != null) {
     board.PM(/*board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].possibleMovements()*/ board.movementsUnderCheck(), board.board[(int)board.mousePosition().x][(int)board.mousePosition().y].getSelection());
   }

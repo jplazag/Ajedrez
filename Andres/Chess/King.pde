@@ -54,6 +54,16 @@ class King extends Piece {
                     PM.remove(PM.indexOf(new PVector(i/8, i%8)));
                   }
                 }
+                if ((abs(board.pieceCheck.getPosition().x - i/8)==abs(board.pieceCheck.getPosition().y + i%8))&&(board.pieceCheck.getPosition().x != i/8 || board.pieceCheck.getPosition().y != i%8)) {
+                  if (PM.indexOf(new PVector(-i/8, i%8)) != -1) {
+                    PM.remove(PM.indexOf(new PVector(-i/8, i%8)));
+                  }
+                }
+                if ((abs(board.pieceCheck.getPosition().x - i/8)==abs(board.pieceCheck.getPosition().y -i%8))&&(board.pieceCheck.getPosition().x != i/8 || board.pieceCheck.getPosition().y != i%8)) {
+                  if (PM.indexOf(new PVector(i/8, -i%8)) != -1) {
+                    PM.remove(PM.indexOf(new PVector(i/8, -i%8)));
+                  }
+                }
               }
             }
           }

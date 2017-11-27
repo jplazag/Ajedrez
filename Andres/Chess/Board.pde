@@ -194,24 +194,51 @@ class Board {
       verify = true;
       turn += 1;
       cast();
-      if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" || board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$Rock") {
-        board[(int)pieceSelection().x][(int)pieceSelection().y].setFirst(false);
+
+      if (pieceSelection().x < 8 && pieceSelection().y < 8) {
+        if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" || board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$Rock" ) {
+          board[(int)pieceSelection().x][(int)pieceSelection().y].setFirst(false);
+        }
       }
+    }
+
+    if (pieceSelection().x < 8 && pieceSelection().y < 8) {
+      println(board[(int)pieceSelection().x][(int)pieceSelection().y].getFirst());
     }
   }
 
-  public void eat() {
-    if ((board[(int)mousePosition().x][(int)mousePosition().y] != null) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
-      if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {
-        if ((board[(int)pieceSelection().x][(int)pieceSelection().y].getTeam() != board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
-          board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
-          board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
-          board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
-          verify = true;
-          turn += 1;
+  public PVector promotion() {
+    PVector posPromotion = null;
+    for (int i = 0; i < 8; i++) {
+      if (board[i][0] != null) {
+        if (board[i][0].getClass().getName() == "Chess$Pawn") {
+          posPromotion = new PVector(i, 0);
         }
       }
-      deselect();
+      if (board[i][7] != null) {
+        if (board[i][7].getClass().getName() == "Chess$Pawn") {
+          posPromotion = new PVector(i, 7);
+        }
+      }
+    }
+
+    return posPromotion;
+  }
+
+  public void eat() {
+    if (pieceSelection().x < 8 && pieceSelection().y < 8) {
+      if ((board[(int)mousePosition().x][(int)mousePosition().y] != null) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
+        if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {
+          if ((board[(int)pieceSelection().x][(int)pieceSelection().y].getTeam() != board[(int)mousePosition().x][(int)mousePosition().y].getTeam()) && (board[(int)pieceSelection().x][(int)pieceSelection().y].possibleMovements().indexOf(mousePosition()) != -1)) {
+            board[(int)mousePosition().x][(int)mousePosition().y] = board[(int)pieceSelection().x][(int)pieceSelection().y];
+            board[(int)pieceSelection().x][(int)pieceSelection().y] = null;
+            board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
+            verify = true;
+            turn += 1;
+          }
+        }
+        deselect();
+      }
     }
   }
   public PVector mousePosition() {
@@ -227,6 +254,8 @@ class Board {
   }
 
   public ArrayList movementsUnderCheck() {
+    boolean verifyB = true;
+    boolean verifyN = true;
     ArrayList<PVector> MUC = new ArrayList<PVector>();
     if (pieceCheck != null) {
       if (pieceCheck.getTeam()) {
@@ -239,43 +268,49 @@ class Board {
               if (pieceCheck.getPosition().x < kingPositionWhite().x && pieceCheck.getPosition().y < kingPositionWhite().y) {
                 for (int i = 1; i< kingPositionWhite().x - pieceCheck.getPosition().x; i++) {
                   MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y + i));
+                  verifyB = false;
                 }
               }
               if (pieceCheck.getPosition().x < kingPositionWhite().x && pieceCheck.getPosition().y > kingPositionWhite().y) {
                 for (int i = 0; i< kingPositionWhite().x - pieceCheck.getPosition().x; i++) {
                   MUC.add(new PVector(pieceCheck.getPosition().x +i, pieceCheck.getPosition().y - i));
+                  verifyB = false;
                 }
               }
               if (pieceCheck.getPosition().x > kingPositionWhite().x && pieceCheck.getPosition().y < kingPositionWhite().y) {
                 for (int i = 1; i <pieceCheck.getPosition().x - kingPositionWhite().x; i++) {
                   MUC.add(new PVector((int)kingPositionWhite().x + i, (int)kingPositionWhite().y - i));
+                  verifyB = false;
                 }
               }
               if (pieceCheck.getPosition().x > kingPositionWhite().x && pieceCheck.getPosition().y > kingPositionWhite().y) {
                 for (int i = 1; i <pieceCheck.getPosition().x - kingPositionWhite().x; i++) {
                   MUC.add(new PVector((int)kingPositionWhite().x + i, (int)kingPositionWhite().y + i));
+                  verifyB = false;
                 }
               }
             }
-            if (pieceCheck.getClass().getName() == "Chess$Rock" || pieceCheck.getClass().getName() == "Chess$Queen") {
-              if (pieceCheck.getPosition().x < kingPositionWhite().x) {
-                for (int i = 1; i< kingPositionWhite().x - pieceCheck.getPosition().x; i++) {
-                  MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y));
+            if (verifyB) {
+              if (pieceCheck.getClass().getName() == "Chess$Rock" || pieceCheck.getClass().getName() == "Chess$Queen") {
+                if (pieceCheck.getPosition().x < kingPositionWhite().x) {
+                  for (int i = 1; i< kingPositionWhite().x - pieceCheck.getPosition().x; i++) {
+                    MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y));
+                  }
                 }
-              }
-              if (pieceCheck.getPosition().x > kingPositionWhite().x) {
-                for (int i = 1; i< pieceCheck.getPosition().x - kingPositionWhite().x; i++) {
-                  MUC.add(new PVector(kingPositionWhite().x + i, kingPositionWhite().y));
+                if (pieceCheck.getPosition().x > kingPositionWhite().x) {
+                  for (int i = 1; i< pieceCheck.getPosition().x - kingPositionWhite().x; i++) {
+                    MUC.add(new PVector(kingPositionWhite().x + i, kingPositionWhite().y));
+                  }
                 }
-              }
-              if (pieceCheck.getPosition().y > kingPositionWhite().y) {
-                for (int i = 1; i< pieceCheck.getPosition().y - kingPositionWhite().y; i++) {
-                  MUC.add(new PVector(pieceCheck.getPosition().x, kingPositionWhite().y + i));
+                if (pieceCheck.getPosition().y > kingPositionWhite().y) {
+                  for (int i = 1; i< pieceCheck.getPosition().y - kingPositionWhite().y; i++) {
+                    MUC.add(new PVector(pieceCheck.getPosition().x, kingPositionWhite().y + i));
+                  }
                 }
-              }
-              if (pieceCheck.getPosition().y < kingPositionWhite().y) {
-                for (int i = 1; i<  kingPositionWhite().y -pieceCheck.getPosition().y; i++) {
-                  MUC.add(new PVector(pieceCheck.getPosition().x, pieceCheck.getPosition().y + i));
+                if (pieceCheck.getPosition().y < kingPositionWhite().y) {
+                  for (int i = 1; i<  kingPositionWhite().y -pieceCheck.getPosition().y; i++) {
+                    MUC.add(new PVector(pieceCheck.getPosition().x, pieceCheck.getPosition().y + i));
+                  }
                 }
               }
             }
@@ -291,26 +326,52 @@ class Board {
             if (pieceCheck.getPosition().x < kingPositionBlack().x && pieceCheck.getPosition().y < kingPositionBlack().y) {
               for (int i = (int)pieceCheck.getPosition().x; i< kingPositionBlack().x; i++) {
                 MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y + i));
+                verifyN = false;
               }
             }
             if (pieceCheck.getPosition().x < kingPositionBlack().x && pieceCheck.getPosition().y > kingPositionBlack().y) {
               for (int i = (int)pieceCheck.getPosition().x; i< kingPositionBlack().x; i++) {
                 MUC.add(new PVector(pieceCheck.getPosition().x +i, pieceCheck.getPosition().y -i));
+                verifyN = false;
               }
             }
             if (pieceCheck.getPosition().x > kingPositionBlack().x && pieceCheck.getPosition().y < kingPositionBlack().y) {
               for (int i = (int)kingPositionBlack().x; i <pieceCheck.getPosition().x; i++) {
                 MUC.add(new PVector((int)kingPositionBlack().x + i, (int)kingPositionBlack().y - i));
+                verifyN = false;
               }
             }
 
             if (pieceCheck.getPosition().x > kingPositionBlack().x && pieceCheck.getPosition().y > kingPositionBlack().y) {
               for (int i = (int)kingPositionBlack().x; i <pieceCheck.getPosition().x; i++) {
                 MUC.add(new PVector((int)kingPositionBlack().x + i, (int)kingPositionBlack().y + i));
+                verifyN = false;
               }
             }
           }
-          if (pieceCheck.getClass().getName() == "Chess$Rock" || pieceCheck.getClass().getName() == "Chess$Queen") {
+          if (verifyN) {
+            if (pieceCheck.getClass().getName() == "Chess$Rock" || pieceCheck.getClass().getName() == "Chess$Queen") {
+              if (pieceCheck.getPosition().x < kingPositionBlack().x) {
+                for (int i = 1; i< kingPositionBlack().x - pieceCheck.getPosition().x; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x + i, pieceCheck.getPosition().y));
+                }
+              }
+              if (pieceCheck.getPosition().x > kingPositionBlack().x) {
+                for (int i = 1; i< pieceCheck.getPosition().x - kingPositionBlack().x; i++) {
+                  MUC.add(new PVector(kingPositionBlack().x + i, kingPositionBlack().y));
+                }
+              }
+              if (pieceCheck.getPosition().y > kingPositionBlack().y) {
+                for (int i = 1; i< pieceCheck.getPosition().y - kingPositionBlack().y; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x, kingPositionBlack().y + i));
+                }
+              }
+              if (pieceCheck.getPosition().y < kingPositionBlack().y) {
+                for (int i = 1; i<  kingPositionBlack().y -pieceCheck.getPosition().y; i++) {
+                  MUC.add(new PVector(pieceCheck.getPosition().x, pieceCheck.getPosition().y + i));
+                }
+              }
+            }
           }
         }
       }
@@ -415,12 +476,12 @@ class Board {
         }
       }
     }
-    if (pieceCheck != null) {
-      println(pieceCheck.getTeam());
-    } else {
-      println("null");
-    }
-    println("Blancas Jaque: " + check);
+    //if (pieceCheck != null) {
+    //  println(pieceCheck.getTeam());
+    //} else {
+    //  println("null");
+    //}
+    //println("Blancas Jaque: " + check);
     return check;
   }
 
@@ -463,12 +524,12 @@ class Board {
         }
       }
     }
-    if (pieceCheck != null) {
-      println(pieceCheck.getTeam());
-    } else {
-      println("null");
-    }
-    println("Negras Jaque: " + check);
+    //if (pieceCheck != null) {
+    //  println(pieceCheck.getTeam());
+    //} else {
+    //  println("null");
+    //}
+    //println("Negras Jaque: " + check);
     return check;
   }
 
