@@ -590,7 +590,7 @@ void draw() {
         aperturas.lector();
         break;
       case 8:
-        aperturas.setInput(loadStrings("Partida2.pgn"));
+        aperturas.setInput(loadStrings("la_inmortal.pgn"));
         aperturas.lector();
         break;
       }
