@@ -108,8 +108,8 @@ abstract class Button {
         board.setFEN(posicion_inicial(conAcertijo-40));
         board.reset();
         board.importFEN();
-        println(conAcertijo);
-        println(posicion_inicial(conAcertijo-40));
+        //println(conAcertijo);
+        //println(posicion_inicial(conAcertijo-40));
         for (int i = 0; i < 64; i++) {
           if (board.board[i/8][i%8] != null) {
             board.board[i/8][i%8].setFirst(false);

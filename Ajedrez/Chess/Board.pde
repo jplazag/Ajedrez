@@ -1,6 +1,6 @@
 class Board {
   Piece[][] board = new Piece[8][8];
-  int size, numJugada;
+  int size, numJugada = 0;
   Piece pieceCheck;
   boolean turn = true;
   String fenString;
@@ -185,9 +185,9 @@ class Board {
       if (j == 7) {
         memoria += " ";
         if (turno % 2 == 0) {
-          memoria += "a";
-        } else if (turno % 2 == 1) {
           memoria += "w";
+        } else if (turno % 2 == 1) {
+          memoria += "a";
         }
       }
       contCol = 0;
@@ -363,6 +363,7 @@ class Board {
             board[(int)mousePosition().x][(int)mousePosition().y].setPosition(new PVector(mousePosition().x, mousePosition().y));
             verify = true;
             turn = !turn;
+            numJugada++;
             matchPlayed.add(turnIntoFEN(numJugada));
             save(matchPlayed);
           }

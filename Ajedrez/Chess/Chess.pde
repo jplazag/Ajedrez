@@ -14,6 +14,7 @@ ArrayList<PVector> posible;
 String b;
 int  inicio=0, lecFEN = -1, solAc=0;
 Reader aperturas = new Reader();
+Reader match = new Reader();
 
 Board board;
 //Board elegido;
@@ -51,6 +52,10 @@ PImage [] leftArrow, rigthArrow;
 PImage cursor, qr;
 
 PFont fuente;
+
+
+//Ctrl + z
+boolean entrada = true;
 
 //Inicializacion Botones
 Movie videoP, videoA_C, videoD_T, videoE, videoObj, videoRey, videoAp;
@@ -148,8 +153,9 @@ public void setupBotones() {
 }
 
 void setup() {
-  
-  fullScreen();
+
+  //fullScreen();
+  size(1000, 1000);
   //myMovie = new Movie(this, "animacion.mp4");
   //myMovie.play();
   frameRate(100);
@@ -252,15 +258,15 @@ void mouseReleased() {
       butMA[j].mouseReleased();
     }
     /*if (nivel==i||nivel==4) {
-      if (butGBA.pressed) {
-        solAc=0;  
-        lecFEN=-1;
-        //aperturas.playsFEN.clear();
-        board.setFEN(posicion_inicial(conAcertijo-40));
-        board.reset();
-        board.importFEN();
-      }
-    }*/
+     if (butGBA.pressed) {
+     solAc=0;  
+     lecFEN=-1;
+     //aperturas.playsFEN.clear();
+     board.setFEN(posicion_inicial(conAcertijo-40));
+     board.reset();
+     board.importFEN();
+     }
+     }*/
     if (nivel==i) {
       butGBA.mouseReleased();
       butSolAc.mouseReleased();
@@ -283,23 +289,50 @@ void mouseClicked() {
 
 
 void draw() {
-  println(promo);
-  background(250);
-  
-  /*pushStyle();
-  pushMatrix();
-  background(250);
-  imageMode(CORNERS);
-  tint(128, 128, 128);
-  if (myMovie.time() < myMovie.duration()) {
-    image(myMovie, 0, 0, width, height);
+  if (keyPressed && key == 'v') {
+    if ((board.numJugada) > 0) {
+      println("board.numJugada " + board.numJugada);
+      board.numJugada--;
+      println("board.numJugada " + board.numJugada);
+      match.reproductorFEN(board, board.matchPlayed.get(board.numJugada));
+      for (int x = 0; x < board.numJugada; x++) {
+        println(x + " " + board.matchPlayed.get(x));
+      }
+      //if (entrada) {
+      //  for (int x = board.numJugada-1; x < board.matchPlayed.size(); x++) {
+      //    board.matchPlayed.remove(x);
+      //    save(board.matchPlayed);
+      //  }
+      //  //board.numJugada--;
+
+      //  entrada = false;
+      //} else {
+        for (int x = board.numJugada; x < board.matchPlayed.size(); x++) {
+          board.matchPlayed.remove(x);
+          save(board.matchPlayed);
+        }
+      //}
+      
+    }
+    key = 0;
   }
-  popMatrix();
-  popStyle();*/
+  //println(promo);
+  background(250);
+
+  /*pushStyle();
+   pushMatrix();
+   background(250);
+   imageMode(CORNERS);
+   tint(128, 128, 128);
+   if (myMovie.time() < myMovie.duration()) {
+   image(myMovie, 0, 0, width, height);
+   }
+   popMatrix();
+   popStyle();*/
 
   textFont(loadFont("OCRAExtended-48.vlw"));
-  println(conAcertijo);
-  println(promo);
+  //println(conAcertijo);
+  //println(promo);
   switch(nivel) {
   case 0:
     for (int i=0; i<butMP.length; i++) {
@@ -329,7 +362,7 @@ void draw() {
         promotion[j].cambio();
       }
     }
-    println(prom);
+    //println(prom);
     break;
   case 2:
     for (int j=0; j<butCJ.length; j++) {
@@ -553,7 +586,7 @@ void draw() {
       if (keyPressed && key == 'a') {
         cambioPartida++;
         key = 0;
-        println(cambioPartida);
+        //println(cambioPartida);
       }
 
       switch(cambioPartida%9) {
@@ -653,7 +686,6 @@ void draw() {
           aperturas.setInput(loadStrings("Solucion9.txt"));
           aperturas.lector();
           break;
-        
         }
       }
 
