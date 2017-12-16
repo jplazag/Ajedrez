@@ -31,11 +31,11 @@ class Reader {
     s+="<";
     return s.toString();
   }
-  public String readFilesFEN(String[] playFEN, int a) {
-    lines = playFEN;
-    cadena.append(lines[a]);
-    return cadena.toString();
-  }
+  //public String readFilesFEN(String[] playFEN, int a) {
+  //  lines = playFEN;
+  //  cadena.append(lines[lines.length-1]);
+  //  return cadena.toString();
+  //}
   public void lector() {
     int index = 0;
     plays.clear();                                                           //ACAAAAAAAAAAAAAAAAAAAAA

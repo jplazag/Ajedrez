@@ -287,8 +287,10 @@ class Board {
       verify = true;
       turn = !turn;
       numJugada++;
-      matchPlayed.add(turnIntoFEN(numJugada));
       save(matchPlayed);
+      matchPlayed.add(turnIntoFEN(numJugada));
+      println("holli");
+
       cast();
       if (board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$King" || board[(int)pieceSelection().x][(int)pieceSelection().y].getClass().getName() == "Chess$Rock") {
         board[(int)pieceSelection().x][(int)pieceSelection().y].setFirst(false);
@@ -308,11 +310,11 @@ class Board {
       if (board[i][7] != null) {
         if (board[i][7].getClass().getName() == "Chess$Pawn") {
           posPromotion = new PVector(i, 7);
-            prom = true;
+          prom = true;
         }
       }
       if (posPromotion != null) {
-        
+
         if (!board[(int)posPromotion.x][(int)posPromotion.y].getTeam()) {
           if (promo == 1) {
             board[(int)posPromotion.x][(int)posPromotion.y] = new Queen(new PVector((int)posPromotion.x, (int)posPromotion.y), false, loadImage("ReinaB.png"));
@@ -692,6 +694,9 @@ class Board {
     if (pieceSelection().x < 8 && pieceSelection().y < 8) {
       move();
       eat();
+
+
+      
       //  deselect();
     }
     if (board[(int)mousePosition().x][(int)mousePosition().y] != null) {

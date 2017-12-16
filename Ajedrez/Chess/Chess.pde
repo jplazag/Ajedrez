@@ -30,7 +30,7 @@ String posicion_inicial(int x) {
 StringBuffer cadena = new StringBuffer();
 
 PrintWriter output;
-String partida = "catalana.pgn", partida2 = "Partida2.pgn";
+
 
 int cambioPartida = 0, cambioPartidaAcertijo=0;
 
@@ -42,12 +42,12 @@ PVector botonGBPos, flechaIzq, flechaDer, botonGBAPos, botonGBPPos, botonesSolAc
 int nivel=0, instrucciones=0, promo;
 
 //Valores para los botones
-int[] valueMP=new int[] {1, 2, 3, 4, 5}, valueCJ=new int[] {21, 22, 23}, valueAA=new int[]{41, 42, 43, 44, 45, 46, 47, 48, 49}, valueAP=new int[] {31, 32, 33, 34, 35, 36, 37, 38, 39};
+int[] valueMP = new int[] {1, 2, 3, 4, 5}, valueCJ=new int[] {21, 22, 23}, valueAA=new int[]{41, 42, 43, 44, 45, 46, 47, 48, 49}, valueAP=new int[] {31, 32, 33, 34, 35, 36, 37, 38, 39};
 //Colores generales para botones
-color[] colorGeneral=new color[3];
+color[] colorGeneral = new color[3];
 color[][] colorBoton = new color[3][3];
 //inicialización imagenes
-PImage[][] imagenesMP= new PImage[5][3], imagenesCJ = new PImage[3][3];
+PImage[][] imagenesMP = new PImage[5][3], imagenesCJ = new PImage[3][3];
 PImage [] leftArrow, rigthArrow;
 PImage cursor, qr;
 
@@ -295,26 +295,34 @@ void draw() {
       board.numJugada--;
       println("board.numJugada " + board.numJugada);
       match.reproductorFEN(board, board.matchPlayed.get(board.numJugada));
-      for (int x = 0; x < board.numJugada; x++) {
+
+      for (int x = board.matchPlayed.size()-1; x >= board.numJugada; x--) {
+        board.matchPlayed.remove(x);
+        //save(board.matchPlayed);
+      }
+      save(board.matchPlayed);
+      for (int x = 0; x < board.matchPlayed.size(); x++) {
         println(x + " " + board.matchPlayed.get(x));
       }
-      //if (entrada) {
-      //  for (int x = board.numJugada-1; x < board.matchPlayed.size(); x++) {
-      //    board.matchPlayed.remove(x);
-      //    save(board.matchPlayed);
-      //  }
-      //  //board.numJugada--;
-
-      //  entrada = false;
-      //} else {
-        for (int x = board.numJugada; x < board.matchPlayed.size(); x++) {
-          board.matchPlayed.remove(x);
-          save(board.matchPlayed);
-        }
-      //}
-      
+      println("holi");
     }
     key = 0;
+  }
+
+  if (keyPressed && key == 'a') {
+    match.setInput(loadStrings("position.txt"));
+    board.matchPlayed.clear();
+    for (int x = 0; x < match.input.length; x++) {
+      board.matchPlayed.add(match.input[x]);
+    }
+    board.numJugada = board.matchPlayed.size() - 1;
+    match.reproductorFEN(board, board.matchPlayed.get(board.numJugada));
+    for (int x = 0; x < board.matchPlayed.size(); x++) {
+      println(x + " " + board.matchPlayed.get(x));
+    }
+    println(board.numJugada);
+    key = 0;
+    //println(cambioPartida);
   }
   //println(promo);
   background(250);
@@ -583,11 +591,7 @@ void draw() {
 
       board.cuadricula();
       board.display();
-      if (keyPressed && key == 'a') {
-        cambioPartida++;
-        key = 0;
-        //println(cambioPartida);
-      }
+
 
       switch(cambioPartida%9) {
       case 0:
